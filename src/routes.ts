@@ -3,7 +3,9 @@ import { Router } from 'express';
 const routes = Router();
 
 routes.get('/', (req, res) => {
-  res.send('Olá mundo');
+	return res.json([{
+		name: 'Marcos'
+	}]);
 });
 
 export default routes;
