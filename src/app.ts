@@ -1,43 +1,18 @@
-import express from 'express';
+import 'reflect-metadata';
 import cors from 'cors';
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-
-import routes from './routes';
+import express from 'express';
+import createConnection from './database';
+import { router } from './routes';
 
 dotenv.config();
 
-class App {
-  public express: express.Application;
+createConnection();
 
-  public constructor() {
-    this.express = express();
+const app = express();
 
-    this.middlewares();
-    this.database();
-    this.routes();
-  }
+app.use(express.json());
+app.use(router);
+app.use(cors());
 
-  private middlewares(): void {
-    this.express.use(express.json());
-    this.express.use(cors());
-  }
-
-  private database(): void {
-    mongoose.connect(process.env.DATABASE_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }).then(() => {
-      console.log('Connected to DATABASE');
-      this.express.emit('connected');
-    }).catch((e) => {
-      console.error(e);
-    });
-  }
-
-  private routes(): void {
-    this.express.use(routes);
-  }
-}
-
-export default new App().express;
+export { app };
