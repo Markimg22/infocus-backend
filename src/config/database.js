@@ -12,7 +12,7 @@ module.exports = {
 		underscored: true,
 		underscoredAll: true,
 		'createdAt': 'created_at',
-		'updatedAt': 'updated_at'
+		'updatedAt': 'updated_at',
 	},
 	diealectOptions: {
 		timezone: '-04:00',
