@@ -35,4 +35,4 @@ export default async (req, res, next) => {
       errors: ['Token expirado ou inválido.']
     });
   }
-}
+};

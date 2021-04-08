@@ -19,7 +19,7 @@ class UserController {
       if (!user) {
         return res.status(400).json({
           errors: ['Usuário não existe']
-        })
+        });
       }
 
       const { id, name, email } = user;
@@ -35,7 +35,7 @@ class UserController {
   async create(req, res) {
     try {
       const user = await User.create(req.body);
-      const { id, name, email } = user
+      const { id, name, email } = user;
 
       return res.json({ id, name, email });
     } catch(e) {
@@ -43,7 +43,7 @@ class UserController {
         errors: e.errors.map((err) => err.message)
       });
     }
-	}
+  }
 
   async update(req, res) {
     try {
