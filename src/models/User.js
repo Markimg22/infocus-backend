@@ -8,18 +8,25 @@ export default class User extends Model {
         type: Sequelize.STRING,
         defaultValue: '',
         validate: {
-          notEmpty: { msg: 'Campo obrigatório *' }
+          notEmpty: { msg: 'Nome é obrigatório *' }
         }
       },
       email: {
         type: Sequelize.STRING,
         defaultValue: '',
-        unique: {
-          msg: 'E-mail já existe'
-        },
         validate: {
-          isEmail: { msg: 'E-mail inválido' }
-        }
+          isEmail: { msg: 'E-mail inválido' },
+          isUnique(value, next) {
+            User.findOne({ where: { email: value } })
+              .then((user) => {
+                if (user) {
+                  return next('E-mail já existe, tente outro!');
+                }
+                return next();
+              })
+              .catch((err) => next(err));
+          },
+        },
       },
       password_hash: {
         type: Sequelize.STRING,
@@ -29,7 +36,7 @@ export default class User extends Model {
         type: Sequelize.VIRTUAL,
         defaultValue: '',
         validate: {
-          notEmpty: { msg: 'Campo obrigatório *' }
+          notEmpty: { msg: 'Senha é obrigatório *' }
         }
       },
     }, {
@@ -37,9 +44,15 @@ export default class User extends Model {
     });
 
     this.addHook('beforeSave', async user => {
-      user.password_hash = await bcryptjs.hash(user.password, 8);
+      if (user.password) {
+        user.password_hash = await bcryptjs.hash(user.password, 8);
+      }
     });
 
     return this;
+  }
+
+  passwordIsValid(password) {
+    return bcryptjs.compare(password, this.password_hash);
   }
 }
