@@ -6,7 +6,7 @@ export default async (req, res, next) => {
 
   if (!authorization) {
     return res.status(401).json({
-      errors: ['Login necessário.']
+      errors: ['Login necessário.'],
     });
   }
 
@@ -17,7 +17,7 @@ export default async (req, res, next) => {
     const { id, email } = datas;
 
     const user = await User.findOne({
-      where: { id, email }
+      where: { id, email },
     });
 
     if (!user) {
@@ -30,9 +30,9 @@ export default async (req, res, next) => {
     req.userEmail = email;
 
     return next();
-  } catch(e) {
+  } catch (e) {
     return res.status(401).json({
-      errors: ['Token expirado ou inválido.']
+      errors: ['Token expirado ou inválido.'],
     });
   }
 };

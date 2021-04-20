@@ -8,8 +8,8 @@ export default class User extends Model {
         type: Sequelize.STRING,
         defaultValue: '',
         validate: {
-          notEmpty: { msg: 'Nome é obrigatório *' }
-        }
+          notEmpty: { msg: 'Nome é obrigatório *' },
+        },
       },
       email: {
         type: Sequelize.STRING,
@@ -30,20 +30,20 @@ export default class User extends Model {
       },
       password_hash: {
         type: Sequelize.STRING,
-        defaultValue: ''
+        defaultValue: '',
       },
       password: {
         type: Sequelize.VIRTUAL,
         defaultValue: '',
         validate: {
-          notEmpty: { msg: 'Senha é obrigatório *' }
-        }
+          notEmpty: { msg: 'Senha é obrigatório *' },
+        },
       },
     }, {
-      sequelize
+      sequelize,
     });
 
-    this.addHook('beforeSave', async user => {
+    this.addHook('beforeSave', async (user) => {
       if (user.password) {
         user.password_hash = await bcryptjs.hash(user.password, 8);
       }

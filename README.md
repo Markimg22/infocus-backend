@@ -23,7 +23,7 @@
 
 ---
 
-<h4 align="center"> 
+<h4 align="center">
 	🚧 Infocus App 🚀 Em construção... 🚧
 </h4>
 
@@ -63,20 +63,25 @@ O layout da aplicação está disponível no Figma:
 
 <h2 id="tecnologias">🛠 Tecnologias</h2>
 
-As seguintes ferramentas foram usadas na construção do projeto:
-
-#### **Mobile**  ([React Native](http://www.reactnative.com/))
+Algumas das ferramentas usadas na construção do projeto:
 
 -   **[Typescript](https://www.typescriptlang.org/)**
+-   **[React Native](http://www.reactnative.com/)**
 -   **[React Navigation](https://reactnavigation.org/)**
 -   **[React Native SVG](https://github.com/react-native-community/react-native-svg)**
 -   **[React Countdown Circle Timer](https://www.npmjs.com/package/react-countdown-circle-timer)**
+-   **[React Native Vector Icons](https://github.com/oblador/react-native-vector-icons)**
+-   **[NodeJS](https://nodejs.org/en/)**
+-   **[Express](https://expressjs.com/pt-br/)**
+-   **[MySQL](https://www.mysql.com/)**
+-   **[Sequelize](https://sequelize.org/)**
+-   **[Nodemon](https://nodemon.io/)**
 
 ---
 
 <h2 id="autores">🦸 Autores</h2>
 
-| [<img src="https://avatars1.githubusercontent.com/u/61772359?s=400&u=bc1cc2d6907c49f1c699a944838b87409a77d5cc&v=4" width=115 > <br> <sub> Marcos Campos </sub>](https://github.com/Markimg22) | [<img src="https://avatars0.githubusercontent.com/u/47955200?s=400&v=4" width=115 > <br> <sub> Gabriel Fonseca </sub>](https://github.com/gabrielbugarelli) | 
-| :---: | :---: 
+| [<img src="https://avatars1.githubusercontent.com/u/61772359?s=400&u=bc1cc2d6907c49f1c699a944838b87409a77d5cc&v=4" width=115 > <br> <sub> Marcos Campos </sub>](https://github.com/Markimg22) | [<img src="https://avatars0.githubusercontent.com/u/47955200?s=400&v=4" width=115 > <br> <sub> Gabriel Fonseca </sub>](https://github.com/gabrielbugarelli) |
+| :---: | :---:
 
 ---

@@ -5,9 +5,9 @@ class UserController {
     try {
       const users = await User.findAll({ attributes: ['id', 'name', 'email'] });
       return res.json(users);
-    } catch(e) {
+    } catch (e) {
       return res.status(400).json({
-        errors: e.errors.map((err) => err.message)
+        errors: e.errors.map((err) => err.message),
       });
     }
   }
@@ -18,16 +18,16 @@ class UserController {
 
       if (!user) {
         return res.status(400).json({
-          errors: ['Usuário não existe']
+          errors: ['Usuário não existe'],
         });
       }
 
       const { id, name, email } = user;
 
       return res.json({ id, name, email });
-    } catch(e) {
+    } catch (e) {
       return res.status(400).json({
-        errors: e.errors.map((err) => err.message)
+        errors: e.errors.map((err) => err.message),
       });
     }
   }
@@ -38,9 +38,9 @@ class UserController {
       const { id, name, email } = user;
 
       return res.json({ id, name, email });
-    } catch(e) {
+    } catch (e) {
       return res.status(400).json({
-        errors: e.errors.map((err) => err.message)
+        errors: e.errors.map((err) => err.message),
       });
     }
   }
@@ -59,9 +59,9 @@ class UserController {
       const { id, name, email } = newDatas;
 
       return res.json({ id, name, email });
-    } catch(e) {
+    } catch (e) {
       return res.status(400).json({
-        errors: e.errors.map((err) => err.message)
+        errors: e.errors.map((err) => err.message),
       });
     }
   }
@@ -78,9 +78,9 @@ class UserController {
 
       await user.destroy();
       return res.json(null);
-    } catch(e) {
+    } catch (e) {
       return res.status(400).json({
-        errors: e.errors.map((err) => err.message)
+        errors: e.errors.map((err) => err.message),
       });
     }
   }
