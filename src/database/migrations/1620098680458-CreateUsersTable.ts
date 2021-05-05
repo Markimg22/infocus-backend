@@ -21,25 +21,9 @@ export class CreateUsersTable1620098680458 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'tasks_id',
-            type: 'uuid',
-            isNullable: true,
-            isArray: true,
-          },
-          {
             name: 'created_at',
             type: 'timestamps',
             default: 'now()',
-          },
-        ],
-        foreignKeys: [
-          {
-            name: 'FKTask',
-            referencedTableName: 'tasks',
-            referencedColumnNames: ['id'],
-            columnNames: ['tasks_id'],
-            onDelete: 'SET NULL',
-            onUpdate: 'SET NULL',
           },
         ],
       }),

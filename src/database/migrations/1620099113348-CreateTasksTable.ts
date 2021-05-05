@@ -14,7 +14,6 @@ export class CreateTasksTable1620099113348 implements MigrationInterface {
           {
             name: 'title',
             type: 'varchar(30)',
-            isUnique: true,
           },
           {
             name: 'is_completed',

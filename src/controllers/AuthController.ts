@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
-import { getCustomRepository } from 'typeorm';
+import { getRepository } from 'typeorm';
 
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-import { UsersRepository } from '../repositories/UsersRepository';
+import { User } from '../entities/User';
 
 class AuthController {
   async authenticate(req: Request, res: Response) {
     try {
-      const repository = getCustomRepository(UsersRepository);
+      const repository = getRepository(User);
       const { email, password } = req.body;
 
       const user = await repository.findOne({ email });
@@ -34,9 +34,7 @@ class AuthController {
 
       return res.json({ user, token });
     } catch (e) {
-      return res.status(400).json({
-        errors: e.errors.map((err: Error) => err.message),
-      });
+      return res.status(400).json(e.message);
     }
   }
 }

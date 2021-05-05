@@ -18,7 +18,8 @@ class User {
   @Column()
   password: string;
 
-  @OneToMany(() => Task, (task) => task.user)
+  // eslint-disable-next-line no-unused-vars
+  @OneToMany((type) => Task, (user) => User)
   tasks: Task[];
 
   @CreateDateColumn()

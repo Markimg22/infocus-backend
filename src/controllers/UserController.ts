@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
-import { getCustomRepository } from 'typeorm';
+import { getRepository } from 'typeorm';
 
-import { UsersRepository } from '../repositories/UsersRepository';
+import { User } from '../entities/User';
 
-class UsersController {
+class UserController {
   async store(req: Request, res: Response) {
     try {
-      const repository = getCustomRepository(UsersRepository);
+      const repository = getRepository(User);
       const { email, password } = req.body;
 
       const userExits = await repository.findOne({ email });
@@ -22,11 +22,9 @@ class UsersController {
 
       return res.json(user);
     } catch (e) {
-      return res.status(400).json({
-        errors: e.errors.map((err: Error) => err.message),
-      });
+      return res.status(400).json(e.message);
     }
   }
 }
 
-export default new UsersController();
+export default new UserController();

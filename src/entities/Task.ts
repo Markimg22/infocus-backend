@@ -16,7 +16,8 @@ class Task {
   @Column()
   is_completed: boolean;
 
-  @ManyToOne(() => User, (user) => user.tasks)
+  // eslint-disable-next-line no-unused-vars
+  @ManyToOne((type) => User, (tasks) => Task)
   user: User;
 
   @CreateDateColumn()
