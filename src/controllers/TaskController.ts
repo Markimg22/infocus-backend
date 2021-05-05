@@ -40,12 +40,28 @@ class TaskController {
   async remove(req: Request, res: Response) {
     try {
       const taskRepository = getRepository(Task);
-      // const userRepository = getRepository(User);
+      const { id } = req.body;
 
-      const user = await taskRepository.findOne({ where: { user: req.userId } });
-      const tasks = await taskRepository.find({ user });
+      await taskRepository.delete(id);
+      const tasks = await taskRepository.find({ where: { user: req.userId } });
 
       return res.json(tasks);
+    } catch (e) {
+      return res.status(400).json(e.message);
+    }
+  }
+
+  async update(req: Request, res: Response) {
+    try {
+      const taskRepository = getRepository(Task);
+      const { id } = req.body;
+
+      const task = await taskRepository.findOne(id);
+      task.is_completed = !task.is_completed;
+
+      await taskRepository.save(task);
+
+      return res.json(task);
     } catch (e) {
       return res.status(400).json(e.message);
     }
