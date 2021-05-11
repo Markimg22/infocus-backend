@@ -7,7 +7,13 @@ class UserController {
   async store(req: Request, res: Response) {
     try {
       const repository = getRepository(User);
-      const { email, password } = req.body;
+      const { email, password, passwordAgain } = req.body;
+
+      if (password !== passwordAgain) {
+        return res.status(409).json({
+          errors: 'Senhas diferentes',
+        });
+      }
 
       const userExits = await repository.findOne({ email });
 
@@ -20,7 +26,7 @@ class UserController {
       const user = repository.create({ email, password });
       await repository.save(user);
 
-      return res.json(user);
+      return res.json(user.email);
     } catch (e) {
       return res.status(400).json(e.message);
     }
