@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
+import isEmail from 'validator/lib/isEmail';
 
 import { User } from '../entities/User';
 
@@ -8,6 +9,18 @@ class UserController {
     try {
       const repository = getRepository(User);
       const { email, password, passwordAgain } = req.body;
+
+      if (!isEmail(email)) {
+        return res.status(409).json({
+          errors: 'E-mail inválido',
+        });
+      }
+
+      if (password === '') {
+        return res.status(409).json({
+          errors: 'Senha vazia',
+        });
+      }
 
       if (password !== passwordAgain) {
         return res.status(409).json({
