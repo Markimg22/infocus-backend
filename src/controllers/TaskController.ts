@@ -40,7 +40,7 @@ class TaskController {
   async remove(req: Request, res: Response) {
     try {
       const taskRepository = getRepository(Task);
-      const { id } = req.body;
+      const { id } = req.params;
 
       await taskRepository.delete(id);
       const tasks = await taskRepository.find({ where: { user: req.userId } });
@@ -54,14 +54,16 @@ class TaskController {
   async update(req: Request, res: Response) {
     try {
       const taskRepository = getRepository(Task);
-      const { id } = req.body;
+      const { id } = req.params;
 
       const task = await taskRepository.findOne(id);
       task.is_completed = !task.is_completed;
 
       await taskRepository.save(task);
 
-      return res.json(task);
+      const tasks = await taskRepository.find({ where: { user: req.userId } });
+
+      return res.json(tasks);
     } catch (e) {
       return res.status(400).json(e.message);
     }
