@@ -1,25 +1,18 @@
 import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
 
-import { Task } from '../entities/Task';
-import { User } from '../entities/User';
+import { UserModel } from '../models/User';
 
 class TaskController {
   async store(req: Request, res: Response) {
     try {
-      const taskRepository = getRepository(Task);
-      const userRepository = getRepository(User);
-
       const { title } = req.body;
 
-      const user = await userRepository.findOne({ id: req.userId });
-      const task = taskRepository.create({ title, is_completed: false, user });
+      const user = await UserModel.findOne({ id: req.userId });
+      user.tasks.push(title);
 
-      delete task.user.password;
+      await user.save();
 
-      await taskRepository.save(task);
-
-      return res.json(task);
+      return res.json(user.tasks);
     } catch (e) {
       return res.status(400).json(e.message);
     }
@@ -27,11 +20,9 @@ class TaskController {
 
   async show(req: Request, res: Response) {
     try {
-      const taskRepository = getRepository(Task);
+      const user = await UserModel.findOne({ id: req.userId });
 
-      const tasks = await taskRepository.find({ where: { user: req.userId } });
-
-      return res.json(tasks);
+      return res.json(user.tasks);
     } catch (e) {
       return res.status(400).json(e.message);
     }
@@ -39,13 +30,14 @@ class TaskController {
 
   async remove(req: Request, res: Response) {
     try {
-      const taskRepository = getRepository(Task);
       const { id } = req.params;
 
-      await taskRepository.delete(id);
-      const tasks = await taskRepository.find({ where: { user: req.userId } });
+      const user = await UserModel.findOne({ id: req.userId });
+      user.tasks = user.tasks.filter((task) => task.id !== id);
 
-      return res.json(tasks);
+      await user.save();
+
+      return res.json(user.tasks);
     } catch (e) {
       return res.status(400).json(e.message);
     }
@@ -53,17 +45,22 @@ class TaskController {
 
   async update(req: Request, res: Response) {
     try {
-      const taskRepository = getRepository(Task);
       const { id } = req.params;
 
-      const task = await taskRepository.findOne(id);
-      task.is_completed = !task.is_completed;
+      const user = await UserModel.findOne({ id: req.userId });
 
-      await taskRepository.save(task);
+      user.tasks.filter((task) => {
+        if (task.id === id) {
+          // eslint-disable-next-line no-param-reassign
+          task.isCompleted = !task.isCompleted;
+        }
 
-      const tasks = await taskRepository.find({ where: { user: req.userId } });
+        return user.tasks;
+      });
 
-      return res.json(tasks);
+      await user.save();
+
+      return res.json(user.tasks);
     } catch (e) {
       return res.status(400).json(e.message);
     }

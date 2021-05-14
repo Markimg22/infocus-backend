@@ -1,18 +1,16 @@
 import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
 
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-import { User } from '../entities/User';
+import { UserModel } from '../models/User';
 
 class AuthController {
   async authenticate(req: Request, res: Response) {
     try {
-      const repository = getRepository(User);
       const { email, password } = req.body;
 
-      const user = await repository.findOne({ email });
+      const user = await UserModel.findOne({ email });
 
       if (!user) {
         return res.status(401).json({

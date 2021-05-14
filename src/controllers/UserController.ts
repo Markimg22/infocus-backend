@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
 import isEmail from 'validator/lib/isEmail';
+import bcrypt from 'bcryptjs';
 
-import { User } from '../entities/User';
+import { UserModel } from '../models/User';
 
 class UserController {
   async store(req: Request, res: Response) {
     try {
-      const repository = getRepository(User);
-      const { email, password, passwordAgain } = req.body;
+      // eslint-disable-next-line prefer-const
+      let { email, password, passwordAgain } = req.body;
 
       if (!isEmail(email)) {
         return res.status(409).json({
@@ -28,7 +28,7 @@ class UserController {
         });
       }
 
-      const userExits = await repository.findOne({ email });
+      const userExits = await UserModel.findOne({ email });
 
       if (userExits) {
         return res.status(409).json({
@@ -36,8 +36,9 @@ class UserController {
         });
       }
 
-      const user = repository.create({ email, password });
-      await repository.save(user);
+      password = bcrypt.hashSync(password, 8);
+
+      const user = await UserModel.create({ email, password });
 
       return res.json(user.email);
     } catch (e) {

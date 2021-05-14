@@ -3,13 +3,10 @@ import { Router } from 'express';
 import userController from './controllers/UserController';
 import authController from './controllers/AuthController';
 import taskController from './controllers/TaskController';
-import homeController from './controllers/HomeController';
 
 import authMiddleware from './middlewares/authMiddleware';
 
 const router = Router();
-
-router.get('/', homeController.index);
 
 /** Users */
 router.post('/register', userController.store);
