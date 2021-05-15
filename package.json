@@ -5,6 +5,9 @@
   "repository": "https://github.com/Markimg22/infocus-backend.git",
   "author": "Markimg22 <marquim.net.221200@hotmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": "12.21.0"
+  },
   "scripts": {
     "dev": "ts-node-dev --files src/server.ts",
     "build": "tsc",
