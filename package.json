@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --files src/server.ts",
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "start": "node dist/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
