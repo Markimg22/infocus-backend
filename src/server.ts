@@ -25,8 +25,8 @@ app.use(cors());
 app.use(router);
 
 app.on('connected', () => {
-  app.listen(3333, () => {
+  app.listen(process.env.PORT || 3333, () => {
     console.log('📦 Successfully connected with database');
-    console.log('🔥 Server started at http://localhost:3333');
+    console.log(`🔥 Server started at ${process.env.PORT || 3333}`);
   });
 });
