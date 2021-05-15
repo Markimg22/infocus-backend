@@ -1,31 +1,51 @@
 import { Schema, model } from 'mongoose';
 
 export interface Task {
-  id: string;
+  _id: string;
   title: string;
   isCompleted: boolean;
-  createdAt?: Date;
+  createdAt: Date;
 }
 
 export interface User {
-  id: string;
+  _id: string;
   email: string;
   password: string;
   tasks: Task[];
-  createdAt?: Date;
+  createdAt: Date;
 }
 
 const TaskSchema = new Schema<Task>({
-  title: String,
-  isCompleted: { type: Boolean, default: false },
-  createdAt: { type: Date, default: Date.now },
+  title: {
+    type: String,
+    require: true,
+  },
+  isCompleted: {
+    type: Boolean,
+    require: true,
+    default: false,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const UserSchema = new Schema<User>({
-  email: { type: String, required: true },
-  password: { type: String, required: true },
-  tasks: { type: [TaskSchema], default: undefined },
-  createdAt: { type: Date, default: Date.now },
+  email: {
+    type: String,
+    require: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    require: true,
+  },
+  tasks: [TaskSchema],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const UserModel = model<User>('User', UserSchema);

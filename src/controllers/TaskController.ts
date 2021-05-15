@@ -1,30 +1,39 @@
 import { Request, Response } from 'express';
 
-import { UserModel } from '../models/User';
+import { UserModel, Task } from '../models/User';
 
 class TaskController {
   async store(req: Request, res: Response) {
     try {
       const { title } = req.body;
 
-      const user = await UserModel.findOne({ id: req.userId });
-      user.tasks.push(title);
+      const user = await UserModel.findById(req.userId);
+      const taskExits = user.tasks.filter((task) => task.title === title);
+
+      if (taskExits.length !== 0) {
+        return res.status(409).json({
+          errors: 'Tarefa já existe',
+        });
+      }
+
+      const task = { title } as Task;
+      user.tasks.push(task);
 
       await user.save();
 
       return res.json(user.tasks);
     } catch (e) {
-      return res.status(400).json(e.message);
+      return res.status(400).json({ errors: 'Houve um erro ao criar tarefa' });
     }
   }
 
   async show(req: Request, res: Response) {
     try {
-      const user = await UserModel.findOne({ id: req.userId });
+      const user = await UserModel.findById(req.userId);
 
       return res.json(user.tasks);
     } catch (e) {
-      return res.status(400).json(e.message);
+      return res.status(400).json({ errors: 'Houve um erro ao listar tarefas' });
     }
   }
 
@@ -32,37 +41,35 @@ class TaskController {
     try {
       const { id } = req.params;
 
-      const user = await UserModel.findOne({ id: req.userId });
-      user.tasks = user.tasks.filter((task) => task.id !== id);
+      await UserModel.findOneAndUpdate({ 'tasks._id': id }, {
+        $pull: {
+          tasks: { _id: id },
+        },
+      });
 
-      await user.save();
+      const user = await UserModel.findById(req.userId);
 
       return res.json(user.tasks);
     } catch (e) {
-      return res.status(400).json(e.message);
+      return res.status(400).json({ errors: 'Houve um erro ao remover tarefa' });
     }
   }
 
   async update(req: Request, res: Response) {
     try {
       const { id } = req.params;
+      const { value } = req.body;
 
-      const user = await UserModel.findOne({ id: req.userId });
+      await UserModel.findOneAndUpdate(
+        { _id: req.userId, 'tasks._id': id },
+        { $set: { 'tasks.$.isCompleted': value } },
+      );
 
-      user.tasks.filter((task) => {
-        if (task.id === id) {
-          // eslint-disable-next-line no-param-reassign
-          task.isCompleted = !task.isCompleted;
-        }
-
-        return user.tasks;
-      });
-
-      await user.save();
+      const user = await UserModel.findById(req.userId);
 
       return res.json(user.tasks);
     } catch (e) {
-      return res.status(400).json(e.message);
+      return res.status(400).json({ errros: 'Houve ao atualizar tarefa' });
     }
   }
 }

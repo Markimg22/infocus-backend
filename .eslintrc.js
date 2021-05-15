@@ -23,5 +23,6 @@ module.exports = {
     camelcase: 'off',
     'import/newline-after-import': 'off',
     'no-undef': 'off',
+    'no-underscore-dangle': 'off',
   },
 };

@@ -1,5 +1,4 @@
-import 'reflect-metadata';
-// import './database';
+// import 'reflect-metadata';
 
 import express from 'express';
 import dotenv from 'dotenv';
@@ -12,7 +11,12 @@ dotenv.config();
 
 const app = express();
 
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.DATABASE_URL, {
+  useCreateIndex: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+})
   .then(() => app.emit('connected'))
   .catch((err) => console.error(err));
 

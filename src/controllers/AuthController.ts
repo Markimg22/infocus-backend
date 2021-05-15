@@ -32,7 +32,7 @@ class AuthController {
 
       return res.json({ user, token });
     } catch (e) {
-      return res.status(400).json(e.message);
+      return res.status(400).json({ erros: 'Houve um erro ao logar' });
     }
   }
 }

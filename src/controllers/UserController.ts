@@ -42,7 +42,7 @@ class UserController {
 
       return res.json(user.email);
     } catch (e) {
-      return res.status(400).json(e.message);
+      return res.status(400).json({ errors: 'Houve um erro ao registrar usuário' });
     }
   }
 }
