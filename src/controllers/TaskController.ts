@@ -12,7 +12,13 @@ class TaskController {
 
       if (taskExits.length !== 0) {
         return res.status(409).json({
-          errors: 'Tarefa já existe',
+          errors: 'Tarefa já existe, tente outra',
+        });
+      }
+
+      if (title === '') {
+        return res.status(409).json({
+          errors: 'Insira um título para sua tarefa.',
         });
       }
 
