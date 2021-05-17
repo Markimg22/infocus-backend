@@ -57,7 +57,7 @@ class TaskController {
 
       return res.json(user.tasks);
     } catch (e) {
-      return res.status(400).json({ errors: 'Houve um erro ao remover tarefa' });
+      return res.status(400).json({ errors: 'Houve um erro ao remover tarefa.' });
     }
   }
 
@@ -75,7 +75,7 @@ class TaskController {
 
       return res.json(user.tasks);
     } catch (e) {
-      return res.status(400).json({ errros: 'Houve ao atualizar tarefa' });
+      return res.status(400).json({ errros: 'Houve ao atualizar tarefa.' });
     }
   }
 }

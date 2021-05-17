@@ -14,7 +14,7 @@ class AuthController {
 
       if (!user) {
         return res.status(401).json({
-          errors: 'Usuário não existe',
+          errors: 'Usuário não existe.',
         });
       }
 
@@ -22,7 +22,7 @@ class AuthController {
 
       if (!isValidPassword) {
         return res.status(401).json({
-          errors: 'Senha incorreta',
+          errors: 'Senha incorreta.',
         });
       }
 
@@ -32,7 +32,7 @@ class AuthController {
 
       return res.json({ user, token });
     } catch (e) {
-      return res.status(400).json({ erros: 'Houve um erro ao logar' });
+      return res.status(400).json({ erros: 'Houve um erro ao logar.' });
     }
   }
 }

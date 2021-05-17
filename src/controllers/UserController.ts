@@ -12,19 +12,19 @@ class UserController {
 
       if (!isEmail(email)) {
         return res.status(409).json({
-          errors: 'E-mail inválido',
+          errors: 'E-mail inválido.',
         });
       }
 
       if (password === '') {
         return res.status(409).json({
-          errors: 'Senha vazia',
+          errors: 'Senha vazia.',
         });
       }
 
       if (password !== passwordAgain) {
         return res.status(409).json({
-          errors: 'Senhas diferentes',
+          errors: 'Senhas diferentes.',
         });
       }
 
@@ -32,7 +32,7 @@ class UserController {
 
       if (userExits) {
         return res.status(409).json({
-          errors: 'Usuário já existe',
+          errors: 'Usuário já existe.',
         });
       }
 
@@ -42,7 +42,7 @@ class UserController {
 
       return res.json(user.email);
     } catch (e) {
-      return res.status(400).json({ errors: 'Houve um erro ao registrar usuário' });
+      return res.status(400).json({ errors: 'Houve um erro ao registrar usuário.' });
     }
   }
 }
