@@ -20,6 +20,7 @@ router.delete('/user/tasks/:id', authMiddleware, taskController.remove);
 router.put('/user/tasks/:id', authMiddleware, taskController.update);
 
 /** Performance */
+router.get('/user/performance', authMiddleware, performanceController.show);
 router.put('/performance/totalTasksCompleted', authMiddleware, performanceController.updateTotalTasksCompleted);
 router.put('/performance/totalWorkingTime', authMiddleware, performanceController.updateTotalWorkingTime);
 router.put('/performance/totalRestTime', authMiddleware, performanceController.updateTotalRestTime);
