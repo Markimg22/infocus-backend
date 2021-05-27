@@ -1,5 +1,12 @@
 import { Schema, model } from 'mongoose';
 
+export interface Performance {
+  _id: string;
+  totalTasksCompleted: number;
+  totalWorkingTime: number;
+  totalRestTime: number;
+}
+
 export interface Task {
   _id: string;
   title: string;
@@ -12,8 +19,31 @@ export interface User {
   email: string;
   password: string;
   tasks: Task[];
+  performance: Performance;
   createdAt: Date;
 }
+
+const PerformanceSchema = new Schema<Performance>({
+  totalTasksCompleted: {
+    type: Number,
+    require: true,
+    default: 0,
+  },
+  totalWorkingTime: {
+    type: Number,
+    require: true,
+    default: 0,
+  },
+  totalRestTime: {
+    type: Number,
+    require: true,
+    default: 0,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
 
 const TaskSchema = new Schema<Task>({
   title: {
@@ -42,6 +72,10 @@ const UserSchema = new Schema<User>({
     require: true,
   },
   tasks: [TaskSchema],
+  performance: {
+    type: PerformanceSchema,
+    default: {},
+  },
   createdAt: {
     type: Date,
     default: Date.now,
