@@ -3,6 +3,17 @@ import { Request, Response } from 'express';
 import { UserModel, Performance } from '../models/User';
 
 class PerformanceController {
+  async show(req: Request, res: Response) {
+    try {
+      const user = await UserModel.findById(req.userId);
+      return res.json(user.performance as Performance);
+    } catch (e) {
+      return res.status(400).json({
+        errors: 'Houve um erro ao obter a performance',
+      });
+    }
+  }
+
   async updateTotalTasksCompleted(req: Request, res: Response) {
     try {
       const { value } = req.body;
