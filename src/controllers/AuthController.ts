@@ -10,7 +10,7 @@ class AuthController {
     try {
       const { email, password } = req.body;
 
-      const user = await UserModel.findOne({ email });
+      const user = await UserModel.findOne({ email: email.trim() });
 
       if (!user) {
         return res.status(401).json({
