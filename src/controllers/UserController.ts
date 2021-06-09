@@ -10,7 +10,7 @@ class UserController {
       // eslint-disable-next-line prefer-const
       let { email, password, passwordAgain } = req.body;
 
-      if (!isEmail(email)) {
+      if (!isEmail(email.trim())) {
         return res.status(409).json({
           errors: 'E-mail inválido.',
         });
@@ -28,7 +28,7 @@ class UserController {
         });
       }
 
-      const userExits = await UserModel.findOne({ email });
+      const userExits = await UserModel.findOne({ email: email.trim() });
 
       if (userExits) {
         return res.status(409).json({
@@ -38,7 +38,7 @@ class UserController {
 
       password = bcrypt.hashSync(password, 8);
 
-      const user = await UserModel.create({ email, password });
+      const user = await UserModel.create({ email: email.trim(), password });
 
       return res.json(user.email);
     } catch (e) {
