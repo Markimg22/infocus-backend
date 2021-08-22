@@ -1,29 +1,25 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import { verify } from 'jsonwebtoken';
 
-interface TokenPayload {
-  id: string;
-  iat: number;
-  exp: number;
+interface ITokenPayload {
+  sub: string;
 }
 
 export default function authMiddleware(req: Request, res: Response, next: NextFunction) {
-  const { authorization } = req.headers;
+  const authToken = req.headers.authorization;
 
-  if (!authorization) {
-    throw new Error('User not authorization.');
+  if (!authToken) {
+    return res.status(401).end();
   }
 
-  const token = authorization.replace('Bearer', '').trim();
+  const [, token] = authToken.split(' ');
 
   try {
-    const data = jwt.verify(token, process.env.TOKEN_SECRET);
-    const { id } = data as TokenPayload;
-
-    req.userId = id;
+    const { sub } = verify(token, process.env.TOKEN_SECRET) as ITokenPayload;
+    req.user_id = sub;
 
     return next();
-  } catch (e) {
-    throw new Error('Authentication error.');
+  } catch (error) {
+    return res.status(401).end();
   }
 }
