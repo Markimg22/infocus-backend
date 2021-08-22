@@ -11,9 +11,7 @@ export default function authMiddleware(req: Request, res: Response, next: NextFu
   const { authorization } = req.headers;
 
   if (!authorization) {
-    return res.status(401).json({
-      errros: 'Usuário não autorizado.',
-    });
+    throw new Error('User not authorization.');
   }
 
   const token = authorization.replace('Bearer', '').trim();
@@ -26,8 +24,6 @@ export default function authMiddleware(req: Request, res: Response, next: NextFu
 
     return next();
   } catch (e) {
-    return res.status(401).json({
-      errros: 'Houve um erro na autenticação.',
-    });
+    throw new Error('Authentication error.');
   }
 }
