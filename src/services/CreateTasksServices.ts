@@ -26,6 +26,6 @@ export class CreateTasksServices {
 
     await tasksRepositories.save(task);
 
-    return task;
+    return 'Created task';
   }
 }

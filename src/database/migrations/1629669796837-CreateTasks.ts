@@ -23,7 +23,6 @@ export class CreateTasks1629669796837 implements MigrationInterface {
           {
             name: 'user_id',
             type: 'uuid',
-            isUnique: true,
           },
           {
             name: 'created_at',

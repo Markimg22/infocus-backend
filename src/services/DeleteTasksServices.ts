@@ -11,10 +11,15 @@ export class DeleteTasksServices {
   async execute({ task_id, user_id }: ITasksRequest) {
     const tasksRepositories = getCustomRepository(TasksRepositories);
 
-    // Delete task
+    // task exists
     const task = await tasksRepositories.findOne({ user_id, id: task_id });
+
+    if (!task) {
+      throw new Error('Task not exists');
+    }
+
     await tasksRepositories.remove(task);
 
-    return task;
+    return 'Deleted task.';
   }
 }

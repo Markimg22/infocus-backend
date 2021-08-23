@@ -24,5 +24,7 @@ module.exports = {
     'import/newline-after-import': 'off',
     'no-undef': 'off',
     'no-underscore-dangle': 'off',
+    'array-callback-return': 'off',
+    'no-param-reassign': 'off',
   },
 };

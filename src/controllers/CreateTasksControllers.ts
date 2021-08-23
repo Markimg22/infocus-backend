@@ -8,13 +8,13 @@ class CreateTasksControllers {
     const { user_id } = req;
 
     const createTasksServices = new CreateTasksServices();
-    const task = await createTasksServices.execute({
+    const result = await createTasksServices.execute({
       title,
       is_completed,
       user_id,
     });
 
-    return res.json(task);
+    return res.json({ message: result });
   }
 }
 

@@ -4,6 +4,7 @@ import createUsersControllers from './controllers/CreateUsersControllers';
 import authenticateUsersControllers from './controllers/AuthenticateUsersControllers';
 import createTasksControllers from './controllers/CreateTasksControllers';
 import deleteTasksControllers from './controllers/DeleteTasksControllers';
+import listTasksControllers from './controllers/ListTasksControllers';
 
 import authMiddleware from './middlewares/authMiddleware';
 
@@ -16,5 +17,6 @@ router.post('/login', authenticateUsersControllers.handle);
 /** Tasks */
 router.post('/user/tasks', authMiddleware, createTasksControllers.handle);
 router.delete('/user/tasks', authMiddleware, deleteTasksControllers.handle);
+router.get('/user/tasks', authMiddleware, listTasksControllers.handle);
 
 export { router };
