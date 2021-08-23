@@ -7,7 +7,7 @@ interface ITasksRequest {
   user_id: string;
 }
 
-export class DeleteTasksServices {
+export class UpdateTasksServices {
   async execute({ task_id, user_id }: ITasksRequest) {
     const tasksRepositories = getCustomRepository(TasksRepositories);
 
@@ -18,9 +18,9 @@ export class DeleteTasksServices {
       throw new Error('Task not exists.');
     }
 
-    // Remove task
-    await tasksRepositories.remove(task);
+    // Update task
+    await tasksRepositories.update({ id: task.id }, { is_completed: !task.is_completed });
 
-    return 'Deleted task.';
+    return 'Updated task';
   }
 }

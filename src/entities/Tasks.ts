@@ -14,7 +14,7 @@ export class Tasks {
   title: string;
 
   @Column()
-  is_completed: boolean
+  is_completed!: boolean;
 
   @JoinColumn({ name: 'user_id' })
   @ManyToOne(() => Users)

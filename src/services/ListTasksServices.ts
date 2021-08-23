@@ -9,16 +9,13 @@ export class ListTasksServices {
     // Get tasks
     const tasks = await tasksRepositories.find({ user_id });
 
-    // Filter tasks
-    const filterTasks = [];
+    // Format tasks
     tasks.map((item) => {
       delete item.user_id;
       delete item.updated_at;
       delete item.created_at;
-
-      filterTasks.push(item);
     });
 
-    return filterTasks;
+    return tasks;
   }
 }
