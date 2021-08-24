@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { ListPerformanceServices } from '../services/ListPerformanceServices';
+import { ListPerformanceServices } from '../../services/performances/ListPerformanceServices';
 
 class ListPerformanceControllers {
   async handle(req: Request, res: Response) {

@@ -1,6 +1,6 @@
 import { getCustomRepository } from 'typeorm';
 
-import { PerformanceRepositories } from '../repositories/PerformanceRepositories';
+import { PerformanceRepositories } from '../../repositories/PerformanceRepositories';
 
 export class ListPerformanceServices {
   async execute(user_id: string) {
