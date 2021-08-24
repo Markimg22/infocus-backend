@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 
 import { CreateUsersServices } from '../../services/users/CreateUsersServices';
+import { CreatePerformanceServices } from '../../services/performances/CreatePerformanceServices';
 
 class CreateUsersControllers {
   async handle(req: Request, res: Response) {
@@ -14,7 +15,15 @@ class CreateUsersControllers {
       password,
     });
 
-    return res.json(user);
+    // Create performance
+    const createPerformanceServices = new CreatePerformanceServices();
+    const performance = await createPerformanceServices.execute(user.id);
+
+    delete performance.user_id;
+    delete performance.created_at;
+    delete performance.updated_at;
+
+    return res.json({ user, performance });
   }
 }
 
