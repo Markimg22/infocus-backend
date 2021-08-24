@@ -2,11 +2,14 @@ import { Router } from 'express';
 
 import createUsersControllers from './controllers/CreateUsersControllers';
 import authenticateUsersControllers from './controllers/AuthenticateUsersControllers';
+
 import createTasksControllers from './controllers/CreateTasksControllers';
 import deleteTasksControllers from './controllers/DeleteTasksControllers';
 import listTasksControllers from './controllers/ListTasksControllers';
 import updateTasksControllers from './controllers/UpdateTasksControllers';
+
 import createPerformanceControllers from './controllers/CreatePerformanceControllers';
+import listPerformanceControllers from './controllers/ListPerformanceControllers';
 
 import authMiddleware from './middlewares/authMiddleware';
 
@@ -24,5 +27,6 @@ router.put('/user/tasks', authMiddleware, updateTasksControllers.handle);
 
 /** Performance */
 router.post('/user/performance', authMiddleware, createPerformanceControllers.handle);
+router.get('/user/performance', authMiddleware, listPerformanceControllers.handle);
 
 export { router };

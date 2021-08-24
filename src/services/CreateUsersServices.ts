@@ -47,6 +47,8 @@ export class CreateUsersServices {
     await usersRepositories.save(user);
 
     delete user.password;
+    delete user.created_at;
+    delete user.updated_at;
 
     return user;
   }
