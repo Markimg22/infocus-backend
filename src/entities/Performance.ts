@@ -6,7 +6,7 @@ import { v4 as uuid } from 'uuid';
 import { Users } from './User';
 
 @Entity('performance')
-export class Performance {
+class Performance {
   @PrimaryColumn()
   readonly id: string;
 
@@ -38,3 +38,5 @@ export class Performance {
     }
   }
 }
+
+export { Performance };

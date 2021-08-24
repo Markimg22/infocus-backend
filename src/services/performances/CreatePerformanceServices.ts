@@ -2,7 +2,7 @@ import { getCustomRepository } from 'typeorm';
 
 import { PerformanceRepositories } from '../../repositories/PerformanceRepositories';
 
-export class CreatePerformanceServices {
+class CreatePerformanceServices {
   async execute(user_id: string) {
     const performanceRepositories = getCustomRepository(PerformanceRepositories);
 
@@ -20,3 +20,5 @@ export class CreatePerformanceServices {
     return performance;
   }
 }
+
+export { CreatePerformanceServices };

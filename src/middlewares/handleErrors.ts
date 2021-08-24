@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 // eslint-disable-next-line no-unused-vars
-export const handleErrors = (error: Error, req: Request, res: Response, next: NextFunction) => {
+const handleErrors = (error: Error, req: Request, res: Response, next: NextFunction) => {
   if (error) {
     return res.status(400).json({
       error: error.message,
@@ -13,3 +13,5 @@ export const handleErrors = (error: Error, req: Request, res: Response, next: Ne
     message: 'Internal server error',
   });
 };
+
+export { handleErrors };

@@ -8,7 +8,7 @@ interface IPerformanceRequest {
   data_to_update: 'total_tasks_completed' | 'total_time_work' | 'total_time_rest';
 }
 
-export class UpdatePerformanceServices {
+class UpdatePerformanceServices {
   async execute({
     user_id, value, data_to_update,
   }: IPerformanceRequest) {
@@ -51,3 +51,5 @@ export class UpdatePerformanceServices {
     return 'Updated performance.';
   }
 }
+
+export { UpdatePerformanceServices };

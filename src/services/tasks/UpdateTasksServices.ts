@@ -7,7 +7,7 @@ interface ITasksRequest {
   user_id: string;
 }
 
-export class UpdateTasksServices {
+class UpdateTasksServices {
   async execute({ task_id, user_id }: ITasksRequest) {
     const tasksRepositories = getCustomRepository(TasksRepositories);
 
@@ -24,3 +24,5 @@ export class UpdateTasksServices {
     return 'Updated task.';
   }
 }
+
+export { UpdateTasksServices };

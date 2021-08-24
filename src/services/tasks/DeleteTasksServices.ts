@@ -7,7 +7,7 @@ interface ITasksRequest {
   user_id: string;
 }
 
-export class DeleteTasksServices {
+class DeleteTasksServices {
   async execute({ task_id, user_id }: ITasksRequest) {
     const tasksRepositories = getCustomRepository(TasksRepositories);
 
@@ -24,3 +24,5 @@ export class DeleteTasksServices {
     return 'Deleted task.';
   }
 }
+
+export { DeleteTasksServices };

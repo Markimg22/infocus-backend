@@ -12,7 +12,7 @@ import updateTasksControllers from './controllers/tasks/UpdateTasksControllers';
 import listPerformanceControllers from './controllers/performances/ListPerformanceControllers';
 import updatePerformanceControllers from './controllers/performances/UpdatePerformanceControllers';
 
-import authMiddleware from './middlewares/authMiddleware';
+import { authMiddleware } from './middlewares/authMiddleware';
 
 const router = Router();
 

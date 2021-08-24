@@ -6,7 +6,7 @@ import { v4 as uuid } from 'uuid';
 import { Users } from './User';
 
 @Entity('tasks')
-export class Tasks {
+class Tasks {
   @PrimaryColumn()
   readonly id: string;
 
@@ -35,3 +35,5 @@ export class Tasks {
     }
   }
 }
+
+export { Tasks };

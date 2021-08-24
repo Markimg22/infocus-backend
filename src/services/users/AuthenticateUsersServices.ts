@@ -9,7 +9,7 @@ interface IAuthenticateRequest {
   password: string;
 }
 
-export class AuthenticateUsersService {
+class AuthenticateUsersService {
   async execute({ email, password }: IAuthenticateRequest) {
     const usersRepositories = getCustomRepository(UsersRepositories);
 
@@ -32,9 +32,7 @@ export class AuthenticateUsersService {
 
     // Generate token
     const token = sign(
-      {
-        email: user.email,
-      },
+      {},
       process.env.TOKEN_SECRET,
       {
         subject: user.id,
@@ -42,6 +40,8 @@ export class AuthenticateUsersService {
       },
     );
 
-    return token;
+    return { token };
   }
 }
+
+export { AuthenticateUsersService };

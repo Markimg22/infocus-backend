@@ -5,7 +5,7 @@ interface ITokenPayload {
   sub: string;
 }
 
-export default function authMiddleware(req: Request, res: Response, next: NextFunction) {
+const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const authToken = req.headers.authorization;
 
   if (!authToken) {
@@ -22,4 +22,6 @@ export default function authMiddleware(req: Request, res: Response, next: NextFu
   } catch (error) {
     return res.status(401).end();
   }
-}
+};
+
+export { authMiddleware };

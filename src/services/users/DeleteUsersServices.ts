@@ -2,7 +2,7 @@ import { getCustomRepository } from 'typeorm';
 
 import { UsersRepositories } from '../../repositories/UsersRepositories';
 
-export class DeleteUsersServices {
+class DeleteUsersServices {
   async execute(user_id: string) {
     const usersRepositories = getCustomRepository(UsersRepositories);
 
@@ -19,3 +19,5 @@ export class DeleteUsersServices {
     return 'Deleted user.';
   }
 }
+
+export { DeleteUsersServices };
