@@ -21,6 +21,6 @@ export class UpdateTasksServices {
     // Update task
     await tasksRepositories.update({ id: task.id }, { is_completed: !task.is_completed });
 
-    return 'Updated task';
+    return 'Updated task.';
   }
 }

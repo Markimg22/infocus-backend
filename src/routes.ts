@@ -10,6 +10,7 @@ import updateTasksControllers from './controllers/tasks/UpdateTasksControllers';
 
 import createPerformanceControllers from './controllers/performances/CreatePerformanceControllers';
 import listPerformanceControllers from './controllers/performances/ListPerformanceControllers';
+import updatePerformanceControllers from './controllers/performances/UpdatePerformanceControllers';
 
 import authMiddleware from './middlewares/authMiddleware';
 
@@ -28,5 +29,6 @@ router.put('/user/tasks', authMiddleware, updateTasksControllers.handle);
 /** Performance */
 router.post('/user/performance', authMiddleware, createPerformanceControllers.handle);
 router.get('/user/performance', authMiddleware, listPerformanceControllers.handle);
+router.put('/user/performance', authMiddleware, updatePerformanceControllers.handle);
 
 export { router };
