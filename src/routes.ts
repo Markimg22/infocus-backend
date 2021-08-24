@@ -1,15 +1,15 @@
 import { Router } from 'express';
 
-import createUsersControllers from './controllers/CreateUsersControllers';
-import authenticateUsersControllers from './controllers/AuthenticateUsersControllers';
+import createUsersControllers from './controllers/users/CreateUsersControllers';
+import authenticateUsersControllers from './controllers/users/AuthenticateUsersControllers';
 
-import createTasksControllers from './controllers/CreateTasksControllers';
-import deleteTasksControllers from './controllers/DeleteTasksControllers';
-import listTasksControllers from './controllers/ListTasksControllers';
-import updateTasksControllers from './controllers/UpdateTasksControllers';
+import createTasksControllers from './controllers/tasks/CreateTasksControllers';
+import deleteTasksControllers from './controllers/tasks/DeleteTasksControllers';
+import listTasksControllers from './controllers/tasks/ListTasksControllers';
+import updateTasksControllers from './controllers/tasks/UpdateTasksControllers';
 
-import createPerformanceControllers from './controllers/CreatePerformanceControllers';
-import listPerformanceControllers from './controllers/ListPerformanceControllers';
+import createPerformanceControllers from './controllers/performances/CreatePerformanceControllers';
+import listPerformanceControllers from './controllers/performances/ListPerformanceControllers';
 
 import authMiddleware from './middlewares/authMiddleware';
 

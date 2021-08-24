@@ -1,6 +1,6 @@
 import { getCustomRepository } from 'typeorm';
 
-import { TasksRepositories } from '../repositories/TasksRepositories';
+import { TasksRepositories } from '../../repositories/TasksRepositories';
 
 interface ITasksRequest {
   title: string;
