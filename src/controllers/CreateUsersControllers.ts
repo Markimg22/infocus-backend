@@ -6,6 +6,7 @@ class CreateUsersControllers {
   async handle(req: Request, res: Response) {
     const { name, email, password } = req.body;
 
+    // Create user
     const createUsersServices = new CreateUsersServices();
     const user = await createUsersServices.execute({
       name,

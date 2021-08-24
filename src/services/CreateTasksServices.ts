@@ -14,7 +14,7 @@ export class CreateTasksServices {
 
     // Validate fields
     if (!title) {
-      throw new Error('Name task is required');
+      throw new Error('Name task is required.');
     }
 
     // Create and save task
@@ -26,6 +26,6 @@ export class CreateTasksServices {
 
     await tasksRepositories.save(task);
 
-    return 'Created task';
+    return 'Created task.';
   }
 }
