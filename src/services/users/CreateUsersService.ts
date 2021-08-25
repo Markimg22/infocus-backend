@@ -49,6 +49,7 @@ class CreateUsersService {
     delete user.password;
     delete user.created_at;
     delete user.updated_at;
+    delete user.email;
 
     return user;
   }

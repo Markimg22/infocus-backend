@@ -10,7 +10,7 @@ const handleAuthenticate = (req: Request, res: Response, next: NextFunction) => 
 
   if (!authToken) {
     return res.status(401).json({
-      error: 'Unauthorized',
+      error: 'Token is missing.',
     }).end();
   }
 
@@ -23,7 +23,7 @@ const handleAuthenticate = (req: Request, res: Response, next: NextFunction) => 
     return next();
   } catch (error) {
     return res.status(401).json({
-      error: 'Unauthorized',
+      error: 'Token invalid.',
     }).end();
   }
 };

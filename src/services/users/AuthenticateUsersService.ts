@@ -15,19 +15,19 @@ class AuthenticateUsersService {
 
     // Validate fields
     if (!email || !password) {
-      throw new Error('E-mail/Password is required.');
+      throw new Error('E-mail or password is required.');
     }
 
     const user = await usersRepositories.findOne({ email });
 
     if (!user) {
-      throw new Error('E-mail/Password is incorrect.');
+      throw new Error('E-mail or password is incorrect.');
     }
 
     const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
-      throw new Error('E-mail/Password is incorrect.');
+      throw new Error('E-mail or password is incorrect.');
     }
 
     // Generate token

@@ -17,11 +17,9 @@ class CreateUsersController {
 
     // Create performance
     const createPerformanceServices = new CreatePerformanceService();
-    const performance = await createPerformanceServices.execute(user.id);
+    await createPerformanceServices.execute(user.id);
 
-    delete performance.user_id;
-
-    return res.json({ user, performance });
+    return res.json(user);
   }
 }
 
