@@ -5,11 +5,13 @@ interface ITokenPayload {
   sub: string;
 }
 
-const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
+const handleAuthenticate = (req: Request, res: Response, next: NextFunction) => {
   const authToken = req.headers.authorization;
 
   if (!authToken) {
-    return res.status(401).end();
+    return res.status(401).json({
+      error: 'Unauthorized',
+    }).end();
   }
 
   const [, token] = authToken.split(' ');
@@ -20,8 +22,10 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
 
     return next();
   } catch (error) {
-    return res.status(401).end();
+    return res.status(401).json({
+      error: 'Unauthorized',
+    }).end();
   }
 };
 
-export { authMiddleware };
+export { handleAuthenticate };

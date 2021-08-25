@@ -1,18 +1,18 @@
 import { Request, Response } from 'express';
 
-import { DeleteUsersServices } from '../../services/users/DeleteUsersServices';
-import { DeletePerformanceServices } from '../../services/performances/DeletePerformanceServices';
-import { DeleteTasksServices } from '../../services/tasks/DeleteTasksServices';
+import { DeleteUsersService } from '../../services/users/DeleteUsersService';
+import { DeletePerformanceService } from '../../services/performances/DeletePerformanceService';
+import { DeleteTasksService } from '../../services/tasks/DeleteTasksService';
 
-import { ListTasksServices } from '../../services/tasks/ListTasksServices';
+import { ListTasksService } from '../../services/tasks/ListTasksService';
 
-class DeleteUsersControllers {
+class DeleteUsersController {
   async handle(req: Request, res: Response) {
     const { user_id } = req;
 
     // Delete tasks
-    const listTasksServices = new ListTasksServices();
-    const deleteTasksServices = new DeleteTasksServices();
+    const listTasksServices = new ListTasksService();
+    const deleteTasksServices = new DeleteTasksService();
 
     const tasks = await listTasksServices.execute(user_id);
 
@@ -22,11 +22,11 @@ class DeleteUsersControllers {
     });
 
     // Delete performance
-    const deletePerformanceServices = new DeletePerformanceServices();
+    const deletePerformanceServices = new DeletePerformanceService();
     const resultDeletePerformance = await deletePerformanceServices.execute(user_id);
 
     // Delete user
-    const deleteUsersServices = new DeleteUsersServices();
+    const deleteUsersServices = new DeleteUsersService();
     const resultDeleteUser = await deleteUsersServices.execute(user_id);
 
     return res.json({
@@ -37,4 +37,4 @@ class DeleteUsersControllers {
   }
 }
 
-export default new DeleteUsersControllers();
+export default new DeleteUsersController();

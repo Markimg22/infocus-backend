@@ -1,34 +1,34 @@
 import { Router } from 'express';
 
-import createUsersControllers from './controllers/users/CreateUsersControllers';
-import authenticateUsersControllers from './controllers/users/AuthenticateUsersControllers';
-import deleteUsersControllers from './controllers/users/DeleteUsersControllers';
+import createUsersController from './controllers/users/CreateUsersController';
+import authenticateUsersController from './controllers/users/AuthenticateUsersController';
+import deleteUsersController from './controllers/users/DeleteUsersController';
 
-import createTasksControllers from './controllers/tasks/CreateTasksControllers';
-import deleteTasksControllers from './controllers/tasks/DeleteTasksControllers';
-import listTasksControllers from './controllers/tasks/ListTasksControllers';
-import updateTasksControllers from './controllers/tasks/UpdateTasksControllers';
+import createTasksController from './controllers/tasks/CreateTasksController';
+import deleteTasksController from './controllers/tasks/DeleteTasksController';
+import listTasksControllers from './controllers/tasks/ListTasksController';
+import updateTasksController from './controllers/tasks/UpdateTasksController';
 
-import listPerformanceControllers from './controllers/performances/ListPerformanceControllers';
-import updatePerformanceControllers from './controllers/performances/UpdatePerformanceControllers';
+import listPerformanceController from './controllers/performances/ListPerformanceController';
+import updatePerformanceController from './controllers/performances/UpdatePerformanceController';
 
-import { authMiddleware } from './middlewares/authMiddleware';
+import { handleAuthenticate } from './middlewares/handleAuthenticate';
 
 const router = Router();
 
 /** Users */
-router.post('/register', createUsersControllers.handle);
-router.post('/login', authenticateUsersControllers.handle);
-router.delete('/user', authMiddleware, deleteUsersControllers.handle);
+router.post('/register', createUsersController.handle);
+router.post('/login', authenticateUsersController.handle);
+router.delete('/user', handleAuthenticate, deleteUsersController.handle);
 
 /** Tasks */
-router.post('/user/tasks', authMiddleware, createTasksControllers.handle);
-router.delete('/user/tasks', authMiddleware, deleteTasksControllers.handle);
-router.get('/user/tasks', authMiddleware, listTasksControllers.handle);
-router.put('/user/tasks', authMiddleware, updateTasksControllers.handle);
+router.post('/user/tasks', handleAuthenticate, createTasksController.handle);
+router.delete('/user/tasks', handleAuthenticate, deleteTasksController.handle);
+router.get('/user/tasks', handleAuthenticate, listTasksControllers.handle);
+router.put('/user/tasks', handleAuthenticate, updateTasksController.handle);
 
 /** Performance */
-router.get('/user/performance', authMiddleware, listPerformanceControllers.handle);
-router.put('/user/performance', authMiddleware, updatePerformanceControllers.handle);
+router.get('/user/performance', handleAuthenticate, listPerformanceController.handle);
+router.put('/user/performance', handleAuthenticate, updatePerformanceController.handle);
 
 export { router };

@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 
-import { CreateTasksServices } from '../../services/tasks/CreateTasksServices';
+import { CreateTasksService } from '../../services/tasks/CreateTasksService';
 
-class CreateTasksControllers {
+class CreateTasksController {
   async handle(req: Request, res: Response) {
     const { title, is_completed } = req.body;
     const { user_id } = req;
 
-    const createTasksServices = new CreateTasksServices();
+    const createTasksServices = new CreateTasksService();
     const result = await createTasksServices.execute({
       title,
       is_completed,
@@ -18,4 +18,4 @@ class CreateTasksControllers {
   }
 }
 
-export default new CreateTasksControllers();
+export default new CreateTasksController();

@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 
-import { AuthenticateUsersService } from '../../services/users/AuthenticateUsersServices';
+import { AuthenticateUsersService } from '../../services/users/AuthenticateUsersService';
 
-class AuthenticateUsersControllers {
+class AuthenticateUsersController {
   async handle(req: Request, res: Response) {
     const { email, password } = req.body;
 
@@ -13,4 +13,4 @@ class AuthenticateUsersControllers {
   }
 }
 
-export default new AuthenticateUsersControllers();
+export default new AuthenticateUsersController();

@@ -1,17 +1,17 @@
 import { Request, Response } from 'express';
 
-import { ListTasksServices } from '../../services/tasks/ListTasksServices';
+import { ListTasksService } from '../../services/tasks/ListTasksService';
 
-class ListTasksControllers {
+class ListTasksController {
   async handle(req: Request, res: Response) {
     const { user_id } = req;
 
     // List tasks
-    const listTasksServices = new ListTasksServices();
+    const listTasksServices = new ListTasksService();
     const tasks = await listTasksServices.execute(user_id);
 
     return res.json(tasks);
   }
 }
 
-export default new ListTasksControllers();
+export default new ListTasksController();

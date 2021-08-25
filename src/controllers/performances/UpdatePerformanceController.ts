@@ -1,17 +1,17 @@
 import { Request, Response } from 'express';
 
-import { UpdatePerformanceServices } from '../../services/performances/UpdatePerformanceServices';
+import { UpdatePerformanceService } from '../../services/performances/UpdatePerformanceService';
 
-class UpdatePerformanceControllers {
+class UpdatePerformanceController {
   async handle(req: Request, res: Response) {
     const { value, data_to_update } = req.body;
     const { user_id } = req;
 
-    const updatePerformanceServices = new UpdatePerformanceServices();
+    const updatePerformanceServices = new UpdatePerformanceService();
     const result = await updatePerformanceServices.execute({ user_id, value, data_to_update });
 
     return res.json({ message: result });
   }
 }
 
-export default new UpdatePerformanceControllers();
+export default new UpdatePerformanceController();

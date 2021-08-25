@@ -8,7 +8,7 @@ interface ITasksRequest {
   user_id: string;
 }
 
-class CreateTasksServices {
+class CreateTasksService {
   async execute({ title, is_completed, user_id }: ITasksRequest) {
     const tasksRepositories = getCustomRepository(TasksRepositories);
 
@@ -30,4 +30,4 @@ class CreateTasksServices {
   }
 }
 
-export { CreateTasksServices };
+export { CreateTasksService };

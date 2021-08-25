@@ -10,7 +10,7 @@ interface IUserRequest {
   password: string;
 }
 
-class CreateUsersServices {
+class CreateUsersService {
   async execute({ name, email, password }: IUserRequest) {
     const usersRepositories = getCustomRepository(UsersRepositories);
 
@@ -54,4 +54,4 @@ class CreateUsersServices {
   }
 }
 
-export { CreateUsersServices };
+export { CreateUsersService };

@@ -2,7 +2,7 @@ import { getCustomRepository } from 'typeorm';
 
 import { TasksRepositories } from '../../repositories/TasksRepositories';
 
-class ListTasksServices {
+class ListTasksService {
   async execute(user_id: string) {
     const tasksRepositories = getCustomRepository(TasksRepositories);
 
@@ -20,4 +20,4 @@ class ListTasksServices {
   }
 }
 
-export { ListTasksServices };
+export { ListTasksService };

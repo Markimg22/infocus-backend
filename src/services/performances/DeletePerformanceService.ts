@@ -2,22 +2,22 @@ import { getCustomRepository } from 'typeorm';
 
 import { PerformanceRepositories } from '../../repositories/PerformanceRepositories';
 
-class ListPerformanceServices {
+class DeletePerformanceService {
   async execute(user_id: string) {
     const performanceRepositories = getCustomRepository(PerformanceRepositories);
 
+    // Performance exists
     const performance = await performanceRepositories.findOne({ user_id });
 
     if (!performance) {
       throw new Error('Performance not exists.');
     }
 
-    delete performance.user_id;
-    delete performance.created_at;
-    delete performance.updated_at;
+    // Remove performance
+    await performanceRepositories.remove(performance);
 
-    return performance;
+    return 'Deleted performance.';
   }
 }
 
-export { ListPerformanceServices };
+export { DeletePerformanceService };
