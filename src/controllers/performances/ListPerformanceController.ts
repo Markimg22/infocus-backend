@@ -7,8 +7,8 @@ class ListPerformanceController {
     const { user_id } = req;
 
     // List performance
-    const listPerformanceServices = new ListPerformanceService();
-    const performance = await listPerformanceServices.execute(user_id);
+    const listPerformanceService = new ListPerformanceService();
+    const performance = await listPerformanceService.execute(user_id);
 
     return res.json(performance);
   }

@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { DeleteUsersService } from '../../services/users/DeleteUsersService';
 import { DeletePerformanceService } from '../../services/performances/DeletePerformanceService';
 import { DeleteTasksService } from '../../services/tasks/DeleteTasksService';
+import { DeleteRefreshTokenService } from '../../services/refreshTokens/DeleteRefreshTokenService';
 
 import { ListTasksService } from '../../services/tasks/ListTasksService';
 
@@ -11,26 +12,31 @@ class DeleteUsersController {
     const { user_id } = req;
 
     // Delete tasks
-    const listTasksServices = new ListTasksService();
-    const deleteTasksServices = new DeleteTasksService();
+    const listTasksService = new ListTasksService();
+    const deleteTasksService = new DeleteTasksService();
 
-    const tasks = await listTasksServices.execute(user_id);
+    const tasks = await listTasksService.execute(user_id);
 
     let resultDeleteTasks = '';
     tasks.map(async (task) => {
-      resultDeleteTasks = await deleteTasksServices.execute({ task_id: task.id, user_id });
+      resultDeleteTasks = await deleteTasksService.execute({ task_id: task.id, user_id });
     });
 
+    // Delete refresh token
+    const deleteRefreshTokenService = new DeleteRefreshTokenService();
+    const resultDeleteRefreshToken = await deleteRefreshTokenService.execute(user_id);
+
     // Delete performance
-    const deletePerformanceServices = new DeletePerformanceService();
-    const resultDeletePerformance = await deletePerformanceServices.execute(user_id);
+    const deletePerformanceService = new DeletePerformanceService();
+    const resultDeletePerformance = await deletePerformanceService.execute(user_id);
 
     // Delete user
-    const deleteUsersServices = new DeleteUsersService();
-    const resultDeleteUser = await deleteUsersServices.execute(user_id);
+    const deleteUsersService = new DeleteUsersService();
+    const resultDeleteUser = await deleteUsersService.execute(user_id);
 
     return res.json({
       tasks: resultDeleteTasks,
+      refresh_token: resultDeleteRefreshToken,
       performance: resultDeletePerformance,
       user: resultDeleteUser,
     });

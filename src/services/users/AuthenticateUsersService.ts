@@ -1,8 +1,10 @@
 import { getCustomRepository } from 'typeorm';
 import { compare } from 'bcryptjs';
-import { sign } from 'jsonwebtoken';
 
 import { UsersRepositories } from '../../repositories/UsersRepositories';
+
+import { CreateRefreshTokenService } from '../refreshTokens/CreateRefreshTokenService';
+import { CreateTokenProvider } from '../../providers/CreateTokenProvider';
 
 interface IAuthenticateRequest {
   email: string;
@@ -30,17 +32,15 @@ class AuthenticateUsersService {
       throw new Error('E-mail or password is incorrect.');
     }
 
-    // Generate token
-    const token = sign(
-      {},
-      process.env.TOKEN_SECRET,
-      {
-        subject: user.id,
-        expiresIn: process.env.TOKEN_EXPIRES,
-      },
-    );
+    // Create token
+    const createTokenProvider = new CreateTokenProvider();
+    const token = await createTokenProvider.execute(user.id);
 
-    return { token };
+    // Create refresh token
+    const createRefreshTokenService = new CreateRefreshTokenService();
+    const refreshToken = await createRefreshTokenService.execute(user.id);
+
+    return { token, refreshToken };
   }
 }
 

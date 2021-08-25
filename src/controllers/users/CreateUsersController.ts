@@ -8,16 +8,16 @@ class CreateUsersController {
     const { name, email, password } = req.body;
 
     // Create user
-    const createUsersServices = new CreateUsersService();
-    const user = await createUsersServices.execute({
+    const createUsersService = new CreateUsersService();
+    const user = await createUsersService.execute({
       name,
       email,
       password,
     });
 
     // Create performance
-    const createPerformanceServices = new CreatePerformanceService();
-    await createPerformanceServices.execute(user.id);
+    const createPerformanceService = new CreatePerformanceService();
+    await createPerformanceService.execute(user.id);
 
     return res.json(user);
   }
