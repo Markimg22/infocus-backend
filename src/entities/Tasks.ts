@@ -10,17 +10,17 @@ class Tasks {
   @PrimaryColumn()
   readonly id: string;
 
-  @Column()
+  @Column('varchar')
   title: string;
 
-  @Column()
+  @Column('boolean')
   is_completed!: boolean;
 
   @JoinColumn({ name: 'user_id' })
   @ManyToOne(() => Users)
   user: Users;
 
-  @Column()
+  @Column('varchar')
   user_id: string;
 
   @CreateDateColumn()

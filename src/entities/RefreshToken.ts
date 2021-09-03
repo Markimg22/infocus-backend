@@ -10,14 +10,14 @@ class RefreshToken {
   @PrimaryColumn()
   readonly id: string;
 
-  @Column()
+  @Column('numeric')
   expires_in: number;
 
   @JoinColumn({ name: 'user_id' })
   @OneToOne(() => Users)
   user: Users;
 
-  @Column()
+  @Column('varchar')
   user_id: string;
 
   @CreateDateColumn()

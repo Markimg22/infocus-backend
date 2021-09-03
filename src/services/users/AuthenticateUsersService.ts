@@ -3,8 +3,8 @@ import { compare } from 'bcryptjs';
 
 import { UsersRepositories } from '../../repositories/UsersRepositories';
 
-import { CreateRefreshTokenService } from '../refreshTokens/CreateRefreshTokenService';
 import { CreateTokenProvider } from '../../providers/CreateTokenProvider';
+import { CreateRefreshTokenService } from '../refreshTokens/CreateRefreshTokenService';
 
 interface IAuthenticateRequest {
   email: string;

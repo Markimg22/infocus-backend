@@ -10,20 +10,20 @@ class Performance {
   @PrimaryColumn()
   readonly id: string;
 
-  @Column({ default: 0 })
+  @Column('numeric', { default: 0 })
   total_tasks_completed: number;
 
-  @Column({ default: 0 })
+  @Column('numeric', { default: 0 })
   total_time_work: number;
 
-  @Column({ default: 0 })
+  @Column('numeric', { default: 0 })
   total_time_rest: number;
 
   @JoinColumn({ name: 'user_id' })
   @OneToOne(() => Users)
   user: Users;
 
-  @Column()
+  @Column('varchar')
   user_id: string;
 
   @CreateDateColumn()
