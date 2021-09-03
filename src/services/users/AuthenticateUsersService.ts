@@ -38,9 +38,9 @@ class AuthenticateUsersService {
 
     // Create refresh token
     const createRefreshTokenService = new CreateRefreshTokenService();
-    const refreshToken = await createRefreshTokenService.execute(user.id);
+    await createRefreshTokenService.execute(user.id);
 
-    return { token, refreshToken };
+    return token;
   }
 }
 

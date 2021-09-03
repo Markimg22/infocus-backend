@@ -4,6 +4,9 @@ import validator from 'validator';
 
 import { UsersRepositories } from '../../repositories/UsersRepositories';
 
+import { AuthenticateUsersService } from './AuthenticateUsersService';
+import { CreatePerformanceService } from '../performances/CreatePerformanceService';
+
 interface IUserRequest {
   name: string;
   email: string;
@@ -46,12 +49,15 @@ class CreateUsersService {
 
     await usersRepositories.save(user);
 
-    delete user.password;
-    delete user.created_at;
-    delete user.updated_at;
-    delete user.email;
+    // Create performance
+    const createPerformanceService = new CreatePerformanceService();
+    await createPerformanceService.execute(user.id);
 
-    return user;
+    // Authenticate
+    const authenticateUsersServices = new AuthenticateUsersService();
+    const token = await authenticateUsersServices.execute({ email, password });
+
+    return token;
   }
 }
 

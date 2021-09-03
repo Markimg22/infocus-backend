@@ -17,29 +17,23 @@ class DeleteUsersController {
 
     const tasks = await listTasksService.execute(user_id);
 
-    let resultDeleteTasks = '';
     tasks.map(async (task) => {
-      resultDeleteTasks = await deleteTasksService.execute({ task_id: task.id, user_id });
+      await deleteTasksService.execute({ task_id: task.id, user_id });
     });
 
     // Delete refresh token
     const deleteRefreshTokenService = new DeleteRefreshTokenService();
-    const resultDeleteRefreshToken = await deleteRefreshTokenService.execute(user_id);
+    await deleteRefreshTokenService.execute(user_id);
 
     // Delete performance
     const deletePerformanceService = new DeletePerformanceService();
-    const resultDeletePerformance = await deletePerformanceService.execute(user_id);
+    await deletePerformanceService.execute(user_id);
 
     // Delete user
     const deleteUsersService = new DeleteUsersService();
     const resultDeleteUser = await deleteUsersService.execute(user_id);
 
-    return res.json({
-      tasks: resultDeleteTasks,
-      refresh_token: resultDeleteRefreshToken,
-      performance: resultDeletePerformance,
-      user: resultDeleteUser,
-    });
+    return res.json({ message: resultDeleteUser });
   }
 }
 
