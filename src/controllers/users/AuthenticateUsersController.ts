@@ -6,6 +6,7 @@ class AuthenticateUsersController {
   async handle(req: Request, res: Response) {
     const { email, password } = req.body;
 
+    // Authenticate user
     const authenticateUsersService = new AuthenticateUsersService();
     const token = await authenticateUsersService.execute({ email, password });
 

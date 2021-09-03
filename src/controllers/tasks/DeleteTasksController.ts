@@ -7,6 +7,7 @@ class DeleteTasksController {
     const { task_id } = req.body;
     const { user_id } = req;
 
+    // Delete task
     const deleteTasksServices = new DeleteTasksService();
     const result = await deleteTasksServices.execute({ task_id, user_id });
 

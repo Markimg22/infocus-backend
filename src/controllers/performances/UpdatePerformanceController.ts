@@ -7,6 +7,7 @@ class UpdatePerformanceController {
     const { value, data_to_update } = req.body;
     const { user_id } = req;
 
+    // Update performance
     const updatePerformanceService = new UpdatePerformanceService();
     const result = await updatePerformanceService.execute({ user_id, value, data_to_update });
 
