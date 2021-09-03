@@ -15,8 +15,6 @@ class DeletePerformanceService {
 
     // Remove performance
     await performanceRepositories.remove(performance);
-
-    return 'Deleted performance.';
   }
 }
 

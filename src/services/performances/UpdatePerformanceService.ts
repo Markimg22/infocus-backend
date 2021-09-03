@@ -2,6 +2,8 @@ import { getCustomRepository } from 'typeorm';
 
 import { PerformanceRepositories } from '../../repositories/PerformanceRepositories';
 
+import { ListPerformanceService } from './ListPerformanceService';
+
 interface IPerformanceRequest {
   user_id: string;
   value: number;
@@ -15,9 +17,9 @@ class UpdatePerformanceService {
     const performancesRepositories = getCustomRepository(PerformanceRepositories);
 
     // Perfomance exists
-    const performance = await performancesRepositories.findOne({ user_id });
+    const performanceExists = await performancesRepositories.findOne({ user_id });
 
-    if (!performance) {
+    if (!performanceExists) {
       throw new Error('Performance not exists.');
     }
 
@@ -26,29 +28,33 @@ class UpdatePerformanceService {
       case 'total_tasks_completed':
         await performancesRepositories.update(
           { user_id },
-          { total_tasks_completed: performance.total_tasks_completed + value },
+          { total_tasks_completed: performanceExists.total_tasks_completed + value },
         );
         break;
 
       case 'total_time_work':
         await performancesRepositories.update(
           { user_id },
-          { total_time_work: performance.total_time_work + value },
+          { total_time_work: performanceExists.total_time_work + value },
         );
         break;
 
       case 'total_time_rest':
         await performancesRepositories.update(
           { user_id },
-          { total_time_rest: performance.total_time_rest + value },
+          { total_time_rest: performanceExists.total_time_rest + value },
         );
         break;
 
       default:
-        throw new Error('Data not found');
+        throw new Error('Type data not found.');
     }
 
-    return 'Updated performance.';
+    // List performance
+    const listPerformanceService = new ListPerformanceService();
+    const performance = await listPerformanceService.execute(user_id);
+
+    return performance;
   }
 }
 

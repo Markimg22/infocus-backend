@@ -11,7 +11,7 @@ class UpdatePerformanceController {
     const updatePerformanceService = new UpdatePerformanceService();
     const result = await updatePerformanceService.execute({ user_id, value, data_to_update });
 
-    return res.json({ message: result });
+    return res.json(result);
   }
 }
 

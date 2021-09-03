@@ -9,13 +9,13 @@ class CreateTasksController {
 
     // Create task
     const createTasksServices = new CreateTasksService();
-    const result = await createTasksServices.execute({
+    const tasks = await createTasksServices.execute({
       title,
       is_completed,
       user_id,
     });
 
-    return res.json({ message: result });
+    return res.json(tasks);
   }
 }
 

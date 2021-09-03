@@ -9,9 +9,9 @@ class UpdateTasksController {
 
     // Update task
     const updateTasksServices = new UpdateTasksService();
-    const result = await updateTasksServices.execute({ task_id, user_id });
+    const tasks = await updateTasksServices.execute({ task_id, user_id });
 
-    return res.json({ message: result });
+    return res.json(tasks);
   }
 }
 
