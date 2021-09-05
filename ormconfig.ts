@@ -1,16 +1,18 @@
+import { ConnectionOptions } from 'typeorm';
+
 export = {
   type: process.env.DATABASE_TYPE,
   host: process.env.DATABASE_HOST,
-  port: process.env.DATABASE_PORT,
+  port: Number(process.env.DATABASE_PORT),
   username: process.env.DATABASE_USERNAME,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE,
-  synchronize: false,
+  synchronize: true,
   logging: false,
-  migrations: ['src/database/migrations/*.{ts, js}'],
-  entities: ['src/entities/*.{ts, js}'],
+  migrations: [`${__dirname}/database/migrations/*.{ts, js}`],
+  entities: [`${__dirname}/entities/*.{ts, js}`],
   cli: {
-    migrationsDir: 'src/database/migrations',
-    entitiesDir: 'src/entities',
+    migrationsDir: `${__dirname}/database/migrations`,
+    entitiesDir: `${__dirname}/entities`,
   },
-}
+} as ConnectionOptions;
