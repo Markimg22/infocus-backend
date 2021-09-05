@@ -1,6 +1,4 @@
-import { ConnectionOptions } from 'typeorm';
-
-export = {
+module.exports = {
   type: process.env.DATABASE_TYPE,
   host: process.env.DATABASE_HOST,
   port: Number(process.env.DATABASE_PORT),
@@ -15,4 +13,4 @@ export = {
     migrationsDir: `${__dirname}/database/migrations`,
     entitiesDir: `${__dirname}/entities`,
   },
-} as ConnectionOptions;
+};
