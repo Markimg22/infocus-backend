@@ -1,26 +1,25 @@
 import {
-  Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn, ManyToOne, JoinColumn,
+  Column, CreateDateColumn, Entity, UpdateDateColumn, ManyToOne, JoinColumn, PrimaryGeneratedColumn,
 } from 'typeorm';
-import { v4 as uuid } from 'uuid';
 
 import { Users } from './User';
 
 @Entity('tasks')
 class Tasks {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
-  @Column('varchar')
+  @Column()
   title: string;
 
-  @Column('boolean')
+  @Column()
   is_completed!: boolean;
 
   @JoinColumn({ name: 'user_id' })
   @ManyToOne(() => Users)
   user: Users;
 
-  @Column('varchar')
+  @Column()
   user_id: string;
 
   @CreateDateColumn()
@@ -28,12 +27,6 @@ class Tasks {
 
   @UpdateDateColumn()
   updated_at: Date;
-
-  constructor() {
-    if (!this.id) {
-      this.id = uuid();
-    }
-  }
 }
 
 export { Tasks };

@@ -3,9 +3,7 @@
     "resolveJsonModule": true,
     "target": "es2017",
     "module": "commonjs",
-    "lib": [
-      "ES6"
-    ],
+    "lib": ["ES7"],
     "allowJs": true,
     "sourceMap": true,
     "outDir": "./dist",
@@ -24,9 +22,10 @@
     "forceConsistentCasingInFileNames": true,
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
   ],
   "exclude": [
-    "src/**/*.spec.ts"
+    "src/**/*.spec.ts",
+    "__tests__/user.test.ts"
   ]
 }

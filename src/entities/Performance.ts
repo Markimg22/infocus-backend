@@ -1,29 +1,28 @@
 import {
-  Column, JoinColumn, OneToOne, PrimaryColumn, CreateDateColumn, UpdateDateColumn, Entity,
+  Column, JoinColumn, OneToOne, CreateDateColumn, UpdateDateColumn, Entity, PrimaryGeneratedColumn,
 } from 'typeorm';
-import { v4 as uuid } from 'uuid';
 
 import { Users } from './User';
 
 @Entity('performance')
 class Performance {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
-  @Column('numeric', { default: 0 })
+  @Column({ default: 0 })
   total_tasks_completed: number;
 
-  @Column('numeric', { default: 0 })
+  @Column({ default: 0 })
   total_time_work: number;
 
-  @Column('numeric', { default: 0 })
+  @Column({ default: 0 })
   total_time_rest: number;
 
   @JoinColumn({ name: 'user_id' })
   @OneToOne(() => Users)
   user: Users;
 
-  @Column('varchar')
+  @Column()
   user_id: string;
 
   @CreateDateColumn()
@@ -31,12 +30,6 @@ class Performance {
 
   @UpdateDateColumn()
   updated_at: Date;
-
-  constructor() {
-    if (!this.id) {
-      this.id = uuid();
-    }
-  }
 }
 
 export { Performance };

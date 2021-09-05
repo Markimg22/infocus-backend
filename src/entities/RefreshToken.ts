@@ -1,23 +1,22 @@
 import {
-  Column, JoinColumn, OneToOne, PrimaryColumn, CreateDateColumn, UpdateDateColumn, Entity,
+  Column, JoinColumn, OneToOne, CreateDateColumn, UpdateDateColumn, Entity, PrimaryGeneratedColumn,
 } from 'typeorm';
-import { v4 as uuid } from 'uuid';
 
 import { Users } from './User';
 
 @Entity('refresh_token')
 class RefreshToken {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
-  @Column('numeric')
+  @Column()
   expires_in: number;
 
   @JoinColumn({ name: 'user_id' })
   @OneToOne(() => Users)
   user: Users;
 
-  @Column('varchar')
+  @Column()
   user_id: string;
 
   @CreateDateColumn()
@@ -25,12 +24,6 @@ class RefreshToken {
 
   @UpdateDateColumn()
   updated_at: Date;
-
-  constructor() {
-    if (!this.id) {
-      this.id = uuid();
-    }
-  }
 }
 
 export { RefreshToken };

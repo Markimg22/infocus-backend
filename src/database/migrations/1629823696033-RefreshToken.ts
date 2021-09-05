@@ -10,10 +10,12 @@ export class RefreshToken1629823696033 implements MigrationInterface {
             name: 'id',
             type: 'uuid',
             isPrimary: true,
+            generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'expires_in',
-            type: 'numeric',
+            type: 'integer',
           },
           {
             name: 'user_id',

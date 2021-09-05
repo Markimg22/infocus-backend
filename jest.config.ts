@@ -2,4 +2,5 @@ export default {
   clearMocks: true,
   coverageProvider: 'v8',
   preset: 'ts-jest',
+  bail: true,
 };
