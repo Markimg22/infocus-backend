@@ -2,9 +2,9 @@ import { getCustomRepository } from 'typeorm';
 import { compare } from 'bcryptjs';
 
 import { UsersRepositories } from '../../repositories/UsersRepositories';
-
-import { CreateTokenProvider } from '../../providers/CreateTokenProvider';
 import { CreateRefreshTokenService } from '../refreshTokens/CreateRefreshTokenService';
+
+import { createToken } from '../../utils/create-token';
 
 interface IAuthenticateRequest {
   email: string;
@@ -33,8 +33,7 @@ class AuthenticateUsersService {
     }
 
     // Create token
-    const createTokenProvider = new CreateTokenProvider();
-    const token = await createTokenProvider.execute(user.id);
+    const token = await createToken(user.id);
 
     // Create refresh token
     const createRefreshTokenService = new CreateRefreshTokenService();
