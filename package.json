@@ -14,9 +14,7 @@
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
     "build": "tsc",
     "start": "NODE_ENV=production node dist/server.js",
-    "typeorm": "ts-node-dev ./node_modules/.bin/typeorm",
-    "migration:generate": "typeorm -- migration:generate --config ./ormconfig.js --connection --name",
-    "migration:run": "typeorm -- migration:run",
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js --config ./ormconfig.js",
     "pretest": "NODE_ENV=test typeorm migration:run",
     "test": "NODE_ENV=test jest",
     "posttest": "NODE_ENV=test typeorm migration:revert"
