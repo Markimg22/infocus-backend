@@ -23,7 +23,7 @@ class CreateUsersService {
     }
 
     if (!email || !validator.isEmail(email)) {
-      throw new Error('Email incorrect.');
+      throw new Error('E-mail incorrect.');
     }
 
     if (!password || password.length < 5) {
