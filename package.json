@@ -14,7 +14,7 @@
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
     "build": "tsc",
     "start": "NODE_ENV=production node dist/server.js",
-    "typeorm": "ts-node-dev --transpile-only ./node_modules/typeorm/cli.js -c development",
+    "typeorm": "ts-node-dev --transpile-only ./node_modules/typeorm/cli.js",
     "test": "NODE_ENV=test jest"
   },
   "dependencies": {
