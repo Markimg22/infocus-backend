@@ -1,12 +1,11 @@
 {
   "compilerOptions": {
-    "resolveJsonModule": true,
     "target": "es2017",
     "module": "commonjs",
     "lib": ["ES7"],
     "allowJs": true,
     "sourceMap": true,
-    "outDir": "./dist",
+    "outDir": "dist",
     "rootDir": "./src",
     "removeComments": true,
     "strict": false,
@@ -15,6 +14,7 @@
       "./src/@types",
       "./node_modules/@types"
     ],
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,

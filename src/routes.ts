@@ -20,17 +20,17 @@ const router = Router();
 /** Users */
 router.post('/register', createUsersController.handle);
 router.post('/login', authenticateUsersController.handle);
-router.delete('/user', handleAuthenticate, deleteUsersController.handle);
+router.delete('/delete-user', handleAuthenticate, deleteUsersController.handle);
 router.post('/refresh-token', refreshTokenUsersController.handle);
 
 /** Tasks */
-router.post('/user/tasks', handleAuthenticate, createTasksController.handle);
-router.delete('/user/tasks', handleAuthenticate, deleteTasksController.handle);
-router.get('/user/tasks', handleAuthenticate, listTasksControllers.handle);
-router.put('/user/tasks', handleAuthenticate, updateTasksController.handle);
+router.post('/create-task', handleAuthenticate, createTasksController.handle);
+router.delete('/delete-task', handleAuthenticate, deleteTasksController.handle);
+router.get('/list-tasks', handleAuthenticate, listTasksControllers.handle);
+router.put('/update-task', handleAuthenticate, updateTasksController.handle);
 
 /** Performance */
-router.get('/user/performance', handleAuthenticate, listPerformanceController.handle);
-router.put('/user/performance', handleAuthenticate, updatePerformanceController.handle);
+router.get('/list-performance', handleAuthenticate, listPerformanceController.handle);
+router.put('/update-performance', handleAuthenticate, updatePerformanceController.handle);
 
 export { router };
