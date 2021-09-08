@@ -15,7 +15,7 @@ module.exports = [
   },
   {
     environment: 'production',
-    name: 'production',
+    name: 'default',
     type: 'postgres',
     url: process.env.DATABASE_URL,
     migrations: ['dist/database/migrations/*.js'],
