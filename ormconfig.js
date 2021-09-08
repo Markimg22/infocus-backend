@@ -30,11 +30,11 @@ module.exports = [
     name: 'test',
     type: 'sqlite',
     database: 'src/__tests__/database.sqlite',
-    migrations: ['src/database/migrations/*.ts'],
-    entities: ['src/entities/*.ts'],
+    migrations: ['src/__tests__/migrations/*.ts'],
+    entities: ['src/__tests__/entities/*.ts'],
     cli: {
-      migrationsDir: 'src/database/migrations',
-      entitiesDir: 'src/entities',
+      migrationsDir: 'src/__tests__/migrations',
+      entitiesDir: 'src/__tests__/entities',
     },
   },
 ];
