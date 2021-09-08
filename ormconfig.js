@@ -1,4 +1,4 @@
-console.log(`LOCAL: ${process.env.NODE_ENV}`);
+console.log(`ENVIRONMENT: ${process.env.NODE_ENV}`);
 
 module.exports = [
   {
