@@ -1,4 +1,4 @@
-import { getCustomRepository } from 'typeorm';
+import { getConnection } from 'typeorm';
 
 import { TasksRepositories } from '../../repositories/TasksRepositories';
 
@@ -12,7 +12,7 @@ interface ITasksRequest {
 
 class CreateTasksService {
   async execute({ title, is_completed, user_id }: ITasksRequest) {
-    const tasksRepositories = getCustomRepository(TasksRepositories);
+    const tasksRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(TasksRepositories);
 
     // Validate fields
     if (!title) {

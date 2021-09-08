@@ -1,4 +1,4 @@
-import { getCustomRepository } from 'typeorm';
+import { getConnection } from 'typeorm';
 import { compare } from 'bcryptjs';
 
 import { UsersRepositories } from '../../repositories/UsersRepositories';
@@ -13,7 +13,7 @@ interface IAuthenticateRequest {
 
 class AuthenticateUsersService {
   async execute({ email, password }: IAuthenticateRequest) {
-    const usersRepositories = getCustomRepository(UsersRepositories);
+    const usersRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(UsersRepositories);
 
     // Validate fields
     if (!email || !password) {

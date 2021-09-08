@@ -1,11 +1,11 @@
-import { getCustomRepository } from 'typeorm';
+import { getConnection } from 'typeorm';
 import dayjs from 'dayjs';
 
 import { RefreshTokenRepositories } from '../../repositories/RefreshTokenRepositories';
 
 class CreateRefreshTokenService {
   async execute(user_id: string) {
-    const refreshTokenRepositories = getCustomRepository(RefreshTokenRepositories);
+    const refreshTokenRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(RefreshTokenRepositories);
 
     // Refresh token already exists
     const refreshTokenAlreadyExists = await refreshTokenRepositories.findOne({ user_id });

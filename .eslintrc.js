@@ -28,6 +28,6 @@ module.exports = {
     'array-callback-return': 'off',
     'no-param-reassign': 'off',
     'default-case': 'off',
-
+    'max-len': 'off',
   },
 };

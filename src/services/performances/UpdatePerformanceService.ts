@@ -1,4 +1,4 @@
-import { getCustomRepository } from 'typeorm';
+import { getConnection } from 'typeorm';
 
 import { PerformanceRepositories } from '../../repositories/PerformanceRepositories';
 
@@ -14,7 +14,7 @@ class UpdatePerformanceService {
   async execute({
     user_id, value, data_to_update,
   }: IPerformanceRequest) {
-    const performancesRepositories = getCustomRepository(PerformanceRepositories);
+    const performancesRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(PerformanceRepositories);
 
     // Perfomance exists
     const performanceExists = await performancesRepositories.findOne({ user_id });

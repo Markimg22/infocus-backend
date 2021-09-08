@@ -1,4 +1,4 @@
-import { getCustomRepository } from 'typeorm';
+import { getConnection } from 'typeorm';
 import { hash } from 'bcryptjs';
 import validator from 'validator';
 
@@ -15,7 +15,7 @@ interface IUserRequest {
 
 class CreateUsersService {
   async execute({ name, email, password }: IUserRequest) {
-    const usersRepositories = getCustomRepository(UsersRepositories);
+    const usersRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(UsersRepositories);
 
     // Validate fields
     if (!name) {

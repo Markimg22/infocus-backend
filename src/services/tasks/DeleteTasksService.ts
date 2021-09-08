@@ -1,4 +1,4 @@
-import { getCustomRepository } from 'typeorm';
+import { getConnection } from 'typeorm';
 
 import { TasksRepositories } from '../../repositories/TasksRepositories';
 
@@ -11,7 +11,7 @@ interface ITasksRequest {
 
 class DeleteTasksService {
   async execute({ task_id, user_id }: ITasksRequest) {
-    const tasksRepositories = getCustomRepository(TasksRepositories);
+    const tasksRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(TasksRepositories);
 
     // Task exists
     const task = await tasksRepositories.findOne({ user_id, id: task_id });

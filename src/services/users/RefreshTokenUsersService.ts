@@ -1,4 +1,4 @@
-import { getCustomRepository } from 'typeorm';
+import { getConnection } from 'typeorm';
 
 import { RefreshTokenRepositories } from '../../repositories/RefreshTokenRepositories';
 
@@ -6,7 +6,7 @@ import { createToken } from '../../utils/create-token';
 
 class RefreshTokenUsersService {
   async execute(refresh_token: string) {
-    const refreshTokenRepositories = getCustomRepository(RefreshTokenRepositories);
+    const refreshTokenRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(RefreshTokenRepositories);
 
     // If not exists
     const refreshToken = await refreshTokenRepositories.findOne({ id: refresh_token });

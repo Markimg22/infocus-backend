@@ -1,10 +1,10 @@
-import { getCustomRepository } from 'typeorm';
+import { getConnection } from 'typeorm';
 
 import { UsersRepositories } from '../../repositories/UsersRepositories';
 
 class DeleteUsersService {
   async execute(user_id: string) {
-    const usersRepositories = getCustomRepository(UsersRepositories);
+    const usersRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(UsersRepositories);
 
     // User exists
     const user = await usersRepositories.findOne({ id: user_id });

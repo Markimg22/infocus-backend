@@ -1,10 +1,10 @@
-import { getCustomRepository } from 'typeorm';
+import { getConnection } from 'typeorm';
 
 import { PerformanceRepositories } from '../../repositories/PerformanceRepositories';
 
 class DeletePerformanceService {
   async execute(user_id: string) {
-    const performanceRepositories = getCustomRepository(PerformanceRepositories);
+    const performanceRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(PerformanceRepositories);
 
     // Performance exists
     const performance = await performanceRepositories.findOne({ user_id });

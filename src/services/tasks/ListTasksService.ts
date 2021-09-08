@@ -1,10 +1,10 @@
-import { getCustomRepository } from 'typeorm';
+import { getConnection } from 'typeorm';
 
 import { TasksRepositories } from '../../repositories/TasksRepositories';
 
 class ListTasksService {
   async execute(user_id: string) {
-    const tasksRepositories = getCustomRepository(TasksRepositories);
+    const tasksRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(TasksRepositories);
 
     // Get tasks
     const tasks = await tasksRepositories.find({ user_id });

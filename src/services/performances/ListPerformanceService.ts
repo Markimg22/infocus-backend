@@ -1,10 +1,10 @@
-import { getCustomRepository } from 'typeorm';
+import { getConnection } from 'typeorm';
 
 import { PerformanceRepositories } from '../../repositories/PerformanceRepositories';
 
 class ListPerformanceService {
   async execute(user_id: string) {
-    const performanceRepositories = getCustomRepository(PerformanceRepositories);
+    const performanceRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(PerformanceRepositories);
 
     const performance = await performanceRepositories.findOne({ user_id });
 
