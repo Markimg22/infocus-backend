@@ -19,7 +19,7 @@ export class CreatePerformance1629719714817 implements MigrationInterface {
             default: 0,
           },
           {
-            name: 'total_time_worK',
+            name: 'total_time_work',
             type: 'integer',
             default: 0,
           },
