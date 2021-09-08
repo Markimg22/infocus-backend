@@ -4,7 +4,6 @@ import validator from 'validator';
 
 import { UsersRepositories } from '../../repositories/UsersRepositories';
 
-import { AuthenticateUsersService } from './AuthenticateUsersService';
 import { CreatePerformanceService } from '../performances/CreatePerformanceService';
 
 interface IUserRequest {
@@ -53,11 +52,13 @@ class CreateUsersService {
     const createPerformanceService = new CreatePerformanceService();
     await createPerformanceService.execute(user.id);
 
-    // Authenticate
-    const authenticateUsersServices = new AuthenticateUsersService();
-    const token = await authenticateUsersServices.execute({ email, password });
+    delete user.password;
+    delete user.created_at;
+    delete user.updated_at;
+    // @ts-expect-error
+    delete user.id;
 
-    return token;
+    return user;
   }
 }
 

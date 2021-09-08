@@ -54,6 +54,9 @@ class UpdatePerformanceService {
     const listPerformanceService = new ListPerformanceService();
     const performance = await listPerformanceService.execute(user_id);
 
+    // @ts-expect-error
+    delete performance.id;
+
     return performance;
   }
 }
