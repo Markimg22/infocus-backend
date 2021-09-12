@@ -3,7 +3,6 @@ import { Request, Response } from 'express';
 import { DeleteUsersService } from '../../services/users/DeleteUsersService';
 import { DeletePerformanceService } from '../../services/performances/DeletePerformanceService';
 import { DeleteTasksService } from '../../services/tasks/DeleteTasksService';
-import { DeleteRefreshTokenService } from '../../services/refreshTokens/DeleteRefreshTokenService';
 
 import { ListTasksService } from '../../services/tasks/ListTasksService';
 
@@ -20,10 +19,6 @@ class DeleteUsersController {
     tasks.map(async (task) => {
       await deleteTasksService.execute({ task_id: task.id, user_id });
     });
-
-    // Delete refresh token
-    const deleteRefreshTokenService = new DeleteRefreshTokenService();
-    await deleteRefreshTokenService.execute(user_id);
 
     // Delete performance
     const deletePerformanceService = new DeletePerformanceService();

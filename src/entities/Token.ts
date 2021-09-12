@@ -1,16 +1,16 @@
 import {
-  Column, JoinColumn, OneToOne, CreateDateColumn, UpdateDateColumn, Entity, PrimaryGeneratedColumn,
+  Column, CreateDateColumn, Entity, UpdateDateColumn, OneToOne, JoinColumn, PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { Users } from './User';
 
-@Entity('refresh_token')
-class RefreshToken {
+@Entity('tokens')
+class Token {
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
   @Column()
-  expires_in: number;
+  hash: string;
 
   @JoinColumn({ name: 'user_id' })
   @OneToOne(() => Users)
@@ -26,4 +26,4 @@ class RefreshToken {
   updated_at: Date;
 }
 
-export { RefreshToken };
+export { Token };

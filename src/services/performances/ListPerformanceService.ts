@@ -12,8 +12,6 @@ class ListPerformanceService {
       throw new Error('Performance not exists.');
     }
 
-    // @ts-expect-error
-    delete performance.id;
     delete performance.user_id;
     delete performance.created_at;
     delete performance.updated_at;

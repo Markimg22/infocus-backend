@@ -10,7 +10,7 @@ const createToken = async (user_id: string) => {
     },
   );
 
-  return { token };
+  return token;
 };
 
 export { createToken };

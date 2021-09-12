@@ -2,8 +2,7 @@ import { getConnection } from 'typeorm';
 import { compare } from 'bcryptjs';
 
 import { UsersRepositories } from '../../repositories/UsersRepositories';
-import { CreateRefreshTokenService } from '../refreshTokens/CreateRefreshTokenService';
-
+import { CreateTokenService } from '../tokens/CreateTokenService';
 import { createToken } from '../../utils/create-token';
 
 interface IAuthenticateRequest {
@@ -35,11 +34,16 @@ class AuthenticateUsersService {
     // Create token
     const token = await createToken(user.id);
 
-    // Create refresh token
-    const createRefreshTokenService = new CreateRefreshTokenService();
-    await createRefreshTokenService.execute(user.id);
+    // Save token in database
+    const createTokenService = new CreateTokenService();
+    await createTokenService.execute(
+      {
+        hash: token,
+        user_id: user.id,
+      },
+    );
 
-    return token;
+    return { user: { email: user.email, name: user.name }, token };
   }
 }
 

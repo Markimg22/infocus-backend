@@ -3,7 +3,8 @@ import { Router } from 'express';
 import createUsersController from './controllers/users/CreateUsersController';
 import authenticateUsersController from './controllers/users/AuthenticateUsersController';
 import deleteUsersController from './controllers/users/DeleteUsersController';
-import refreshTokenUsersController from './controllers/users/RefreshTokenUsersController';
+
+import refreshTokenController from './controllers/tokens/RefreshTokenController';
 
 import createTasksController from './controllers/tasks/CreateTasksController';
 import deleteTasksController from './controllers/tasks/DeleteTasksController';
@@ -21,7 +22,9 @@ const router = Router();
 router.post('/register', createUsersController.handle);
 router.post('/login', authenticateUsersController.handle);
 router.delete('/delete-user', handleAuthenticate, deleteUsersController.handle);
-router.post('/refresh-token', refreshTokenUsersController.handle);
+
+/** Token */
+router.post('/refresh-token', refreshTokenController.handle);
 
 /** Tasks */
 router.post('/create-task', handleAuthenticate, createTasksController.handle);

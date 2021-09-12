@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class RefreshToken1629823696033 implements MigrationInterface {
+export class CreateRefreshToken1631474128130 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'refresh_token',
+        name: 'tokens',
         columns: [
           {
             name: 'id',
@@ -14,8 +14,8 @@ export class RefreshToken1629823696033 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'expires_in',
-            type: 'integer',
+            name: 'hash',
+            type: 'varchar',
           },
           {
             name: 'user_id',
@@ -47,6 +47,6 @@ export class RefreshToken1629823696033 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('refresh_token');
+    await queryRunner.dropTable('token');
   }
 }
