@@ -17,6 +17,11 @@ class CreateUsersService {
   async execute({ name, email, password }: IUserRequest) {
     const usersRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(UsersRepositories);
 
+    // Remove white spaces
+    name = name.trim();
+    email = email.trim();
+    password = password.trim();
+
     // Validate fields
     if (!name) {
       throw new Error('Name is required.');

@@ -14,6 +14,9 @@ class CreateTasksService {
   async execute({ title, is_completed, user_id }: ITasksRequest) {
     const tasksRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(TasksRepositories);
 
+    // Remove white spaces
+    title = title.trim();
+
     // Validate fields
     if (!title) {
       throw new Error('Name task is required.');
