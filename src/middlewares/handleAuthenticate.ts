@@ -1,29 +1,39 @@
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
+import { getConnection } from 'typeorm';
+
+import { TokenRepositories } from '../repositories/TokenRepositories';
 
 interface ITokenPayload {
   sub: string;
 }
 
-const handleAuthenticate = (req: Request, res: Response, next: NextFunction) => {
-  const authToken = req.headers.authorization;
-
-  if (!authToken) {
-    return res.status(401).json({
-      error: 'Token is missing.',
-    }).end();
-  }
-
-  const [, token] = authToken.split(' ');
-
+const handleAuthenticate = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    const authToken = req.headers.authorization;
+
+    if (!authToken) {
+      throw new Error('Unauthorized.');
+    }
+
+    const [, token] = authToken.split(' ');
+
     const { sub } = verify(token, process.env.TOKEN_SECRET) as ITokenPayload;
+
+    // If token not valid
+    const tokenRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(TokenRepositories);
+    const tokenUser = await tokenRepositories.findOne({ user_id: sub });
+
+    if (tokenUser.hash !== token) {
+      throw new Error('Unauthorized.');
+    }
+
     req.user_id = sub;
 
     return next();
   } catch (error) {
     return res.status(401).json({
-      error: 'Token invalid.',
+      error: error.message,
     }).end();
   }
 };

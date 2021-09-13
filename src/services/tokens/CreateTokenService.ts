@@ -16,9 +16,7 @@ class CreateTokenService {
 
     if (tokenAlreadyExists) {
       // Update token
-      await tokenRepositories.update({ id: tokenAlreadyExists.id }, {
-        hash,
-      });
+      await tokenRepositories.update({ id: tokenAlreadyExists.id }, { hash });
     } else {
       // Create and save new token to database
       const token = tokenRepositories.create({ hash, user_id });
