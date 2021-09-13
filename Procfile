@@ -1,1 +1,1 @@
-web: yarn install & yarn build & yarn typeorm migration:run -c production & yarn start
+web: yarn install & yarn build & yarn start
