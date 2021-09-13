@@ -32,9 +32,7 @@ const handleAuthenticate = async (req: Request, res: Response, next: NextFunctio
 
     return next();
   } catch (error) {
-    return res.status(401).json({
-      error: error.message,
-    }).end();
+    throw new Error('Unauthorized.');
   }
 };
 
