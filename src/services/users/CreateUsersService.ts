@@ -18,37 +18,37 @@ class CreateUsersService {
     const usersRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(UsersRepositories);
 
     // Remove white spaces
-    name = name.trim();
-    email = email.trim();
-    password = password.trim();
+    const _name = name.trim();
+    const _email = email.trim();
+    const _password = password.trim();
 
     // Validate fields
-    if (!name) {
+    if (!_name) {
       throw new Error('Name is required.');
     }
 
-    if (!email || !validator.isEmail(email)) {
+    if (!_email || !validator.isEmail(_email)) {
       throw new Error('E-mail incorrect.');
     }
 
-    if (!password || password.length < 5) {
+    if (!_password || _password.length < 5) {
       throw new Error('Password is required and greater than 5 characters.');
     }
 
     // Validate user already exists
-    const userAlreadyExists = await usersRepositories.findOne({ email });
+    const userAlreadyExists = await usersRepositories.findOne({ email: _email });
 
     if (userAlreadyExists) {
       throw new Error('User already exists.');
     }
 
     // Hash password
-    const passwordHash = await hash(password, 8);
+    const passwordHash = await hash(_password, 8);
 
     // Create user
     const user = usersRepositories.create({
-      name,
-      email,
+      name: _name,
+      email: _email,
       password: passwordHash,
     });
 
@@ -60,7 +60,10 @@ class CreateUsersService {
 
     // Authenticate user
     const authenticateUsersService = new AuthenticateUsersService();
-    const result = await authenticateUsersService.execute({ email, password });
+    const result = await authenticateUsersService.execute({
+      email: _email,
+      password: _password,
+    });
 
     return result;
   }

@@ -13,7 +13,9 @@ const handleAuthenticate = async (req: Request, res: Response, next: NextFunctio
     const authToken = req.headers.authorization;
 
     if (!authToken) {
-      throw new Error('Unauthorized.');
+      return res.status(401).json({
+        error: 'Unauthorized.',
+      });
     }
 
     const [, token] = authToken.split(' ');
@@ -25,14 +27,18 @@ const handleAuthenticate = async (req: Request, res: Response, next: NextFunctio
     const tokenUser = await tokenRepositories.findOne({ user_id: sub });
 
     if (tokenUser.hash !== token) {
-      throw new Error('Unauthorized.');
+      return res.status(401).json({
+        error: 'Unauthorized.',
+      });
     }
 
     req.user_id = sub;
 
     return next();
   } catch (error) {
-    throw new Error('Unauthorized.');
+    return res.status(401).json({
+      error: 'Unauthorized.',
+    });
   }
 };
 

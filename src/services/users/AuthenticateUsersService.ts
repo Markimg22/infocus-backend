@@ -15,21 +15,21 @@ class AuthenticateUsersService {
     const usersRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(UsersRepositories);
 
     // Remove white spaces
-    email = email.trim();
-    password = email.trim();
+    const _email = email.trim();
+    const _password = password.trim();
 
     // Validate fields
-    if (!email || !password) {
+    if (!_email || !_password) {
       throw new Error('E-mail or password is required.');
     }
 
-    const user = await usersRepositories.findOne({ email });
+    const user = await usersRepositories.findOne({ email: _email });
 
     if (!user) {
       throw new Error('E-mail or password is incorrect.');
     }
 
-    const passwordMatch = await compare(password, user.password);
+    const passwordMatch = await compare(_password, user.password);
 
     if (!passwordMatch) {
       throw new Error('E-mail or password is incorrect.');

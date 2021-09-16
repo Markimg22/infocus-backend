@@ -14,6 +14,8 @@ import updateTasksController from './controllers/tasks/UpdateTasksController';
 import listPerformanceController from './controllers/performances/ListPerformanceController';
 import updatePerformanceController from './controllers/performances/UpdatePerformanceController';
 
+import listTermController from './controllers/terms/ListTermController';
+
 import { handleAuthenticate } from './middlewares/handleAuthenticate';
 
 const router = Router();
@@ -24,7 +26,7 @@ router.post('/login', authenticateUsersController.handle);
 router.delete('/delete-user', handleAuthenticate, deleteUsersController.handle);
 
 /** Token */
-router.post('/refresh-token', refreshTokenController.handle);
+router.put('/refresh-token', refreshTokenController.handle);
 
 /** Tasks */
 router.post('/create-task', handleAuthenticate, createTasksController.handle);
@@ -35,5 +37,8 @@ router.put('/update-task', handleAuthenticate, updateTasksController.handle);
 /** Performance */
 router.get('/list-performance', handleAuthenticate, listPerformanceController.handle);
 router.put('/update-performance', handleAuthenticate, updatePerformanceController.handle);
+
+/** Term */
+router.get('/terms', listTermController.handle);
 
 export { router };

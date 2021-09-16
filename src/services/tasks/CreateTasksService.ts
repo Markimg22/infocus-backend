@@ -15,16 +15,16 @@ class CreateTasksService {
     const tasksRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(TasksRepositories);
 
     // Remove white spaces
-    title = title.trim();
+    const _title = title.trim();
 
     // Validate fields
-    if (!title) {
+    if (!_title) {
       throw new Error('Name task is required.');
     }
 
     // Create and save task
     const task = tasksRepositories.create({
-      title,
+      title: _title,
       is_completed,
       user_id,
     });
