@@ -4,7 +4,7 @@ import { DeleteTasksService } from '../../services/tasks/DeleteTasksService';
 
 class DeleteTasksController {
   async handle(req: Request, res: Response) {
-    const { task_id } = req.body;
+    const { task_id } = req.params;
     const { user_id } = req;
 
     // Delete task

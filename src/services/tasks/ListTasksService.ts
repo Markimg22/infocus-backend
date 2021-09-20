@@ -2,6 +2,8 @@ import { getConnection } from 'typeorm';
 
 import { TasksRepositories } from '../../repositories/TasksRepositories';
 
+import { alphabeticalOrderComparison } from '../../utils/alphabetical-order-comparison';
+
 class ListTasksService {
   async execute(user_id: string) {
     const tasksRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(TasksRepositories);
@@ -16,7 +18,10 @@ class ListTasksService {
       delete item.created_at;
     });
 
-    return tasks;
+    // Order list tasks
+    const sortTasks = tasks.sort(alphabeticalOrderComparison);
+
+    return sortTasks;
   }
 }
 

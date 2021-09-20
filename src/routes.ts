@@ -30,7 +30,7 @@ router.put('/refresh-token', refreshTokenController.handle);
 
 /** Tasks */
 router.post('/create-task', handleAuthenticate, createTasksController.handle);
-router.delete('/delete-task', handleAuthenticate, deleteTasksController.handle);
+router.delete('/delete-task/:task_id', handleAuthenticate, deleteTasksController.handle);
 router.get('/list-tasks', handleAuthenticate, listTasksControllers.handle);
 router.put('/update-task', handleAuthenticate, updateTasksController.handle);
 
