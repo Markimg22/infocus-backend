@@ -2,14 +2,17 @@ import { getConnection } from 'typeorm';
 
 import { TasksRepositories } from '../../repositories/TasksRepositories';
 
-import { alphabeticalOrderComparison } from '../../utils/alphabetical-order-comparison';
-
 class ListTasksService {
   async execute(user_id: string) {
     const tasksRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(TasksRepositories);
 
     // Get tasks
-    const tasks = await tasksRepositories.find({ user_id });
+    const tasks = await tasksRepositories.find({
+      where: { user_id },
+      order: {
+        created_at: 'ASC',
+      },
+    });
 
     // Format tasks
     tasks.map((item) => {
@@ -18,10 +21,7 @@ class ListTasksService {
       delete item.created_at;
     });
 
-    // Order list tasks
-    const sortTasks = tasks.sort(alphabeticalOrderComparison);
-
-    return sortTasks;
+    return tasks;
   }
 }
 
