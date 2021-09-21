@@ -17,23 +17,23 @@ class CreateUsersService {
   async execute({ name, email, password }: IUserRequest) {
     const usersRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(UsersRepositories);
 
+    // Validate fields
+    if (!name) {
+      throw new Error('Name is required.');
+    }
+
+    if (!email || !validator.isEmail(email.trim())) {
+      throw new Error('E-mail incorrect.');
+    }
+
+    if (!password || password.length < 5) {
+      throw new Error('Password is required and greater than 5 characters.');
+    }
+
     // Remove white spaces
     const _name = name.trim();
     const _email = email.trim();
     const _password = password.trim();
-
-    // Validate fields
-    if (!_name) {
-      throw new Error('Name is required.');
-    }
-
-    if (!_email || !validator.isEmail(_email)) {
-      throw new Error('E-mail incorrect.');
-    }
-
-    if (!_password || _password.length < 5) {
-      throw new Error('Password is required and greater than 5 characters.');
-    }
 
     // Validate user already exists
     const userAlreadyExists = await usersRepositories.findOne({ email: _email });

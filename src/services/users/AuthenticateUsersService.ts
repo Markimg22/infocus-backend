@@ -14,14 +14,14 @@ class AuthenticateUsersService {
   async execute({ email, password }: IAuthenticateRequest) {
     const usersRepositories = getConnection(process.env.NODE_ENV).getCustomRepository(UsersRepositories);
 
+    // Validate fields
+    if (!email || !password) {
+      throw new Error('E-mail or password is required.');
+    }
+
     // Remove white spaces
     const _email = email.trim();
     const _password = password.trim();
-
-    // Validate fields
-    if (!_email || !_password) {
-      throw new Error('E-mail or password is required.');
-    }
 
     const user = await usersRepositories.findOne({ email: _email });
 
